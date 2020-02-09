@@ -43,7 +43,7 @@ MASCrypt is a calculating tool on basic arithmetic operations and also modular a
   ```bash
   ~/MASCrypt$ python3 main.py
   ```
-* **Windows**: In Windows systems it is sufficient to double click on the `main.py` file of the downloaded repository.
+* **Windows**: In Windows systems just to double click on the `main.py` file of the downloaded repository.
 
 ## How to test
 ```
