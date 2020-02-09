@@ -171,8 +171,7 @@ def set_formula(selected_op, op3=False):
     ] and op3:
         filename = f'{filename}_mod'
 
-    print(f'{filename}.png')
-    op_formula = PhotoImage(file=f'img/{filename}.png')
+    op_formula = PhotoImage(file=f'img/formulas/{filename}.png')
     lbl_formula.configure(image=op_formula)
     lbl_formula.image = op_formula
 
