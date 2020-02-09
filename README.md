@@ -1,4 +1,4 @@
-<p align="center"><img width=12.5% src="https://github.com/JavierDominguezGomez/MASCrypt/blob/master/img/logo.png"></p>
+<p align="center"><img src="https://github.com/JavierDominguezGomez/MASCrypt/blob/master/img/logo.png"></p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-brightgreen.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -13,8 +13,7 @@
 
 MASCrypt is a calculating tool on basic arithmetic operations and also modular arithmetic operations commonly used in cryptography. It is intended both for the study and learning of cryptography, but also for crypto professionals. Calculations can be made in Base-2 (binary), Base-10 (decimal) and Base-16 (hexadecimal) using very large integers.
 
-<p align="center"><img width=95% src="https://github.com/JavierDominguezGomez/MASCrypt/blob/master/img/mascrypt_screenshot_00.png"></p>
-
+<p align="center"><img src="https://github.com/JavierDominguezGomez/MASCrypt/blob/master/img/mascrypt_screenshot_00.png"></p>
 <br>
 
 ## List of available operations
@@ -36,12 +35,19 @@ MASCrypt is a calculating tool on basic arithmetic operations and also modular a
 
 ## Latest Development Changes
 ```bash
-git clone https://github.com/JavierDominguezGomez/MASCrypt.git
+~$ git clone https://github.com/JavierDominguezGomez/MASCrypt.git
 ```
+
+## How to launch
+* **GNU/Linux**, **Unix** and **Mac**:
+  ```bash
+  ~/MASCrypt$ python3 main.py
+  ```
+* **Windows**: In Windows systems it is sufficient to double click on the `main.py` file of the downloaded repository.
 
 ## How to test
 ```
-pytest -v test.py
+~$ pytest -v test.py
 ========================== test session starts ===========================
 platform linux -- Python 3.6.9, pytest-4.5.0, py-1.8.0, pluggy-0.13.1
 cachedir: .pytest_cache
