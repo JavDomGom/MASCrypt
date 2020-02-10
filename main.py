@@ -377,16 +377,18 @@ def calculate():
 
     if op == op_addition[0]:
         if mod_active.get():
-            operation.addition(res, base, op1, op2, mod)
+            operation.addition(res, time_exec, base, op1, op2, mod)
             txt_history.insert(
                 END,
-                f'{op1.get()} + {op2.get()} mod {mod.get()} = {res.get()}\n'
+                f'{op1.get()} + {op2.get()} mod {mod.get()} = {res.get()}\n\n\
+{time_exec.get()}'
             )
         else:
-            operation.addition(res, base, op1, op2)
+            operation.addition(res, time_exec, base, op1, op2)
             txt_history.insert(
                 END,
-                f'{op1.get()} + {op2.get()} = {res.get()}\n'
+                f'{op1.get()} + {op2.get()} = {res.get()}\n\n\
+{time_exec.get()}'
             )
     elif op == op_substraction[0]:
         if mod_active.get():
@@ -496,16 +498,18 @@ def calculate():
             f'{op1.get()} {res.get().lower()}\n'
         )
     elif op == op_factorization[0]:
-        operation.factorization(res, base, op1)
+        operation.factorization(res, time_exec, base, op1)
         txt_history.insert(
             END,
-            f'{op1.get()} = {res.get()}\n'
+            f'{op1.get()} = {res.get()}\n\n\
+{time_exec.get()}'
         )
     elif op == op_discreteLogarithm[0]:
-        operation.discreteLogarithm(res, base, op1, op2, mod)
+        operation.discreteLogarithm(res, time_exec, base, op1, op2, mod)
         txt_history.insert(
             END,
-            f'{op1.get()}^{res.get()} = {op2.get()} mod {mod.get()}\n'
+            f'{op1.get()}^{res.get()} = {op2.get()} mod {mod.get()}\n\n\
+{time_exec.get()}'
         )
 
     txt_history.see(END)
@@ -642,6 +646,7 @@ op3 = StringVar()
 mod_active = IntVar()
 mod = StringVar()
 res = StringVar()
+time_exec = StringVar()
 
 base_list = [
     base_default,
@@ -710,7 +715,7 @@ frm_R.grid_rowconfigure(1, weight=1)
 frm_L1 = Frame(
     frm_L,
     bd=5,
-    width=550,
+    width=500,
     height=167
 )
 frm_L1.pack(expand=True, fill='both')
@@ -888,7 +893,7 @@ txt_history = Text(
     frm_R,
     font=font,
     state='normal',
-    width=25,
+    width=31,
     height=15
 )
 scrollb = Scrollbar(frm_R)

@@ -1,14 +1,16 @@
+import time
 from resources.Common import Common
 
 
 class Addition(Common):
 
-    def integerAddition(self, a, b):
-        ''' This method adds two integers. The result can be returned in base 2
+    def integerAddition(self, time_exec, a, b):
+        """ This method adds two integers. The result can be returned in base 2
         (binary), 10 (decimal) or 16 (hexadecimal), depending on the
         self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: First integer.
             :b: Second integer.
 
@@ -29,17 +31,22 @@ class Addition(Common):
                 # Base-16 numeral system or hexadecimal:
                 la.Addition(16).integerAddition('53', '96')
                 # Returns 0xe9
-        '''
-        return self.baseTransform(
+        """
+        start_time = time.time()
+        res = self.baseTransform(
             int(a, self.base) + int(b, self.base)
         )
+        time_exec.set(f'(time: {time.time() - start_time})\n')
 
-    def modularAddition(self, a, b, n):
-        ''' Method that performs the modular addition of two integers.
+        return res
+
+    def modularAddition(self, time_exec, a, b, n):
+        """ Method that performs the modular addition of two integers.
         The result can be returned in base 2 (binary), 10 (decimal) or 16
         (hexadecimal), depending on the self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: First integer.
             :b: Second integer.
             :n: Module number.
@@ -62,7 +69,11 @@ class Addition(Common):
                 # Base-16 numeral system or hexadecimal:
                 la.Addition(16).modularAddition('53', '96', '6B')
                 # Returns 0x13
-        '''
-        return self.baseTransform(
+        """
+        start_time = time.time()
+        res = self.baseTransform(
             (int(a, self.base) + int(b, self.base)) % int(n, self.base)
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n')
+
+        return res

@@ -1,14 +1,16 @@
+import time
 from resources.Common import Common
 
 
 class DiscreteLogarithm(Common):
 
-    def discreteLogarithm(self, a, y, n, N=None):
-        ''' This method executes the discrete logarithm problem and returns the
+    def discreteLogarithm(self, time_exec, a, y, n, N=None):
+        """ This method executes the discrete logarithm problem and returns the
         value of X. The result can be returned in base 2 (binary), 10 (decimal)
         or 16 (hexadecimal), depending on the self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: Base.
             :y: Power.
             :n: Module.
@@ -31,9 +33,10 @@ class DiscreteLogarithm(Common):
                 # Base-16 numeral system or hexadecimal:
                 ldl.DiscreteLogarithm(16).discreteLogarithm('2', '39', '3D7'))
                 # Returns 0x82
-        '''
+        """
         from math import sqrt
 
+        start_time = time.time()
         a = int(a, self.base)
         y = int(y, self.base)
         n = int(n, self.base)
@@ -51,10 +54,13 @@ class DiscreteLogarithm(Common):
         giant_step = y
         for q in range(N+1):
             if giant_step in baby_steps:
-                return self.baseTransform(
+                res = self.baseTransform(
                     q*N + baby_steps[giant_step]
                 )
+                time_exec.set(f'(time: {time.time() - start_time})\n')
+                return res
             else:
                 giant_step = giant_step * giant_stride % n
 
+        time_exec.set(f'(time: {time.time() - start_time})\n')
         return 'No Match'

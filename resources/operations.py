@@ -1,15 +1,15 @@
-def addition(res, base, op1, op2, module=None):
+def addition(res, time_exec, base, op1, op2, module=None):
     import resources.Addition as la
 
     if module is None:
         res.set(
             la.Addition(base.get())
-              .integerAddition(op1.get(), op2.get())
+              .integerAddition(time_exec, op1.get(), op2.get())
         )
     else:
         res.set(
             la.Addition(base.get())
-              .modularAddition(op1.get(), op2.get(), module.get())
+              .modularAddition(time_exec, op1.get(), op2.get(), module.get())
         )
 
 
@@ -150,19 +150,19 @@ def primality(res, base, op1):
         res.set('It\'s not prime')
 
 
-def factorization(res, base, op1):
+def factorization(res, time_exec, base, op1):
     import resources.Factorization as lf
 
     res.set(
         lf.Factorization(base.get())
-          .factorization(op1.get())
+          .factorization(time_exec, op1.get())
     )
 
 
-def discreteLogarithm(res, base, b, y, module):
+def discreteLogarithm(res, time_exec, base, b, y, module):
     import resources.DiscreteLogarithm as ldl
 
     res.set(
         ldl.DiscreteLogarithm(base.get())
-           .discreteLogarithm(b.get(), y.get(), module.get())
+           .discreteLogarithm(time_exec, b.get(), y.get(), module.get())
     )

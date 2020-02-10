@@ -1,10 +1,11 @@
+import time
 from resources.Common import Common
 
 
 class Factorization(Common):
 
-    def factorization(self, n):
-        ''' This method uses Pollard's rho integer factorization algorithm and
+    def factorization(self, time_exec, n):
+        """ This method uses Pollard's rho integer factorization algorithm and
         returns a list of factors in which a number can be decomposed. The
         result can be returned in base 2 (binary), 10 (decimal) or 16
         (hexadecimal), depending on the self.base value.
@@ -29,9 +30,10 @@ class Factorization(Common):
                 # Base-16 numeral system or hexadecimal:
                 lf.Factorization(16).factorization('A28C'))
                 # Returns ['0x4', '0x65', '0x67']
-        '''
+        """
         from math import gcd
 
+        start_time = time.time()
         n = int(n, self.base)
         factors = []
 
@@ -58,4 +60,5 @@ class Factorization(Common):
             factors.append(self.baseTransform(next))
             n //= next
 
+        time_exec.set(f'(time: {time.time() - start_time})\n')
         return factors
