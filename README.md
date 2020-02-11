@@ -9,9 +9,7 @@
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-yellow.svg)
 
 ## Basic Overview
-(Modular Arithmetic Software for Cryptography)
-
-MASCrypt is a calculating tool on basic arithmetic operations and also modular arithmetic operations commonly used in cryptography. It is intended both for the study and learning of cryptography, but also for crypto professionals. Calculations can be made in Base-2 (binary), Base-10 (decimal) and Base-16 (hexadecimal) using very large integers.
+MASCrypt (*Modular Arithmetic Software for Cryptography*) is a calculating tool on basic arithmetic operations and also modular arithmetic operations commonly used in cryptography. It is intended both for the study and learning of cryptography, but also for crypto professionals. Calculations can be made in Base-2 (binary), Base-10 (decimal) and Base-16 (hexadecimal) using very large integers.
 
 <p align="center"><img src="https://github.com/JavierDominguezGomez/MASCrypt/blob/master/img/mascrypt_screenshot_00.png"></p>
 <br>
@@ -43,7 +41,7 @@ MASCrypt is a calculating tool on basic arithmetic operations and also modular a
   ```bash
   ~/MASCrypt$ python3 main.py
   ```
-* **Windows**: In Windows systems just to double click on the `main.py` file of the downloaded repository.
+* **Windows**: In Windows systems just double click on `main.py` file from downloaded repository.
 
 ## How to test
 ```

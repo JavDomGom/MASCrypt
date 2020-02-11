@@ -11,10 +11,10 @@ program_version = '0.1.0'
 updated = 'Updated: 2020/01/29'
 copyleft = 'Copyleft 2020, Javier Domínguez Gómez'
 program_description = 'Modular Arithmetic Software for Cryptography'
-about_text = '''This program  is free software:  you  can  redistribute  it and/or
+about_text = """This program  is free software:  you  can  redistribute  it and/or
 modify  it under  the terms of the  GNU General Public License
 as published by the Free Software Foundation, either version 3
-of the License.'''
+of the License."""
 lbl_width = 14
 lbl_anchor = 'e'
 lbl_sticky = 'e'
@@ -380,135 +380,141 @@ def calculate():
             operation.addition(res, time_exec, base, op1, op2, mod)
             txt_history.insert(
                 END,
-                f'{op1.get()} + {op2.get()} mod {mod.get()} = {res.get()}\n\n\
+                f'{op1.get()} + {op2.get()} mod {mod.get()} = {res.get()}\n\
 {time_exec.get()}'
             )
         else:
             operation.addition(res, time_exec, base, op1, op2)
             txt_history.insert(
                 END,
-                f'{op1.get()} + {op2.get()} = {res.get()}\n\n\
-{time_exec.get()}'
+                f'{op1.get()} + {op2.get()} = {res.get()}\n{time_exec.get()}'
             )
     elif op == op_substraction[0]:
         if mod_active.get():
-            operation.substraction(res, base, op1, op2, mod)
+            operation.substraction(res, time_exec, base, op1, op2, mod)
             txt_history.insert(
                 END,
-                f'{op1.get()} - {op2.get()} mod {mod.get()} = {res.get()}\n'
+                f'{op1.get()} - {op2.get()} mod {mod.get()} = {res.get()}\n\
+{time_exec.get()}'
             )
         else:
-            operation.substraction(res, base, op1, op2)
+            operation.substraction(res, time_exec, base, op1, op2)
             txt_history.insert(
                 END,
-                f'{op1.get()} - {op2.get()} = {res.get()}\n'
+                f'{op1.get()} - {op2.get()} = {res.get()}\n{time_exec.get()}'
             )
     elif op == op_multiplication[0]:
         if mod_active.get():
-            operation.multiplication(res, base, op1, op2, mod)
+            operation.multiplication(res, time_exec, base, op1, op2, mod)
             txt_history.insert(
                 END,
-                f'{op1.get()} x {op2.get()} mod {mod.get()} = {res.get()}\n'
+                f'{op1.get()} x {op2.get()} mod {mod.get()} = {res.get()}\n\
+{time_exec.get()}'
             )
         else:
-            operation.multiplication(res, base, op1, op2)
+            operation.multiplication(res, time_exec, base, op1, op2)
             txt_history.insert(
                 END,
-                f'{op1.get()} x {op2.get()} = {res.get()}\n'
+                f'{op1.get()} x {op2.get()} = {res.get()}\n{time_exec.get()}'
             )
     elif op == op_division[0]:
-        operation.division(res, base, op1, op2)
+        operation.division(res, time_exec, base, op1, op2)
         txt_history.insert(
             END,
-            f'{op1.get()}/{op2.get()} = {res.get()}\n'
+            f'{op1.get()}/{op2.get()} = {res.get()}\n{time_exec.get()}'
         )
     elif op == op_square_root[0]:
-        operation.square_root(res, base, op1)
+        operation.square_root(res, time_exec, base, op1)
         txt_history.insert(
             END,
-            f'√{op1.get()} = {res.get()}\n'
+            f'√{op1.get()} = {res.get()}\n{time_exec.get()}'
         )
     elif op == op_primitive_root[0]:
-        operation.primitive_root(res, base, op1)
+        operation.primitive_root(res, time_exec, base, op1)
         txt_history.insert(
             END,
-            f'|∝|={len(eval(res.get()))}, {op1.get()} = {res.get()}\n'
+            f'|∝|={len(eval(res.get()))}, {op1.get()} = {res.get()}\n\
+{time_exec.get()}'
         )
     elif op == op_xor[0]:
-        operation.xor(res, base, op1, op2)
+        operation.xor(res, time_exec, base, op1, op2)
         txt_history.insert(
             END,
-            f'{op1.get()} XOR {op2.get()} = {res.get()}\n'
+            f'{op1.get()} XOR {op2.get()} = {res.get()}\n{time_exec.get()}'
         )
     elif op == op_mod_inverse[0]:
-        operation.mod_inverse(res, base, op1, mod)
+        operation.mod_inverse(res, time_exec, base, op1, mod)
         txt_history.insert(
             END,
-            f'inv({op1.get()}, {mod.get()}) = {res.get()}\n'
+            f'inv({op1.get()}, {mod.get()}) = {res.get()}\n{time_exec.get()}'
         )
     elif op == op_exponentation[0]:
         if mod_active.get():
-            operation.exponentation(res, base, op1, op2, mod)
+            operation.exponentation(res, time_exec, base, op1, op2, mod)
             txt_history.insert(
                 END,
-                f'{op1.get()}^{op2.get()} mod {mod.get()} = {res.get()}\n'
+                f'{op1.get()}^{op2.get()} mod {mod.get()} = {res.get()}\n\
+{time_exec.get()}'
             )
         else:
-            operation.exponentation(res, base, op1, op2)
+            operation.exponentation(res, time_exec, base, op1, op2)
             txt_history.insert(
                 END,
-                f'{op1.get()}^{op2.get()} = {res.get()}\n'
+                f'{op1.get()}^{op2.get()} = {res.get()}\n{time_exec.get()}'
             )
     elif op == op_module[0]:
-        operation.module(res, base, op1, mod)
+        operation.module(res, time_exec, base, op1, mod)
         txt_history.insert(
             END,
-            f'{op1.get()} mod {mod.get()} = {res.get()}\n'
+            f'{op1.get()} mod {mod.get()} = {res.get()}\n{time_exec.get()}'
         )
     elif op == op_gcd[0]:
         if op3_active.get():
-            operation.gcd(res, base, op1, op2, op3)
+            operation.gcd(res, time_exec, base, op1, op2, op3)
             txt_history.insert(
                 END,
-                f'gdc({op1.get()}, {op2.get()}, {op3.get()}) = {res.get()}\n'
+                f'gdc({op1.get()}, {op2.get()}, {op3.get()}) = {res.get()}\n\
+{time_exec.get()}'
             )
         else:
-            operation.gcd(res, base, op1, op2)
+            operation.gcd(res, time_exec, base, op1, op2)
             txt_history.insert(
                 END,
-                f'gdc({op1.get()}, {op2.get()}) = {res.get()}\n'
+                f'gdc({op1.get()}, {op2.get()}) = {res.get()}\n\
+{time_exec.get()}'
             )
     elif op == op_lcm[0]:
         if op3_active.get():
-            operation.lcm(res, base, op1, op2, op3)
+            operation.lcm(res, time_exec, base, op1, op2, op3)
             txt_history.insert(
                 END,
-                f'lcm({op1.get()}, {op2.get()}, {op3.get()}) = {res.get()}\n'
+                f'lcm({op1.get()}, {op2.get()}, {op3.get()}) = {res.get()}\n\
+{time_exec.get()}'
             )
         else:
-            operation.lcm(res, base, op1, op2)
+            operation.lcm(res, time_exec, base, op1, op2)
             txt_history.insert(
                 END,
-                f'lcm({op1.get()}, {op2.get()}) = {res.get()}\n'
+                f'lcm({op1.get()}, {op2.get()}) = {res.get()}\n\
+{time_exec.get()}'
             )
     elif op == op_primality[0]:
-        operation.primality(res, base, op1)
+        operation.primality(res, time_exec, base, op1)
         txt_history.insert(
             END,
-            f'{op1.get()} {res.get().lower()}\n'
+            f'{op1.get()} {res.get().lower()}\n{time_exec.get()}'
         )
     elif op == op_factorization[0]:
         operation.factorization(res, time_exec, base, op1)
         txt_history.insert(
             END,
-            f'{op1.get()} = {res.get()}\n\n\
-{time_exec.get()}'
+            f'{op1.get()} = {res.get()}\n{time_exec.get()}'
         )
     elif op == op_discreteLogarithm[0]:
         operation.discreteLogarithm(res, time_exec, base, op1, op2, mod)
         txt_history.insert(
             END,
-            f'{op1.get()}^{res.get()} = {op2.get()} mod {mod.get()}\n\n\
+            f'{op1.get()}^{res.get()} = {op2.get()} mod {mod.get()}\n\
 {time_exec.get()}'
         )
 
@@ -605,315 +611,316 @@ def validate_hex(value):
     return False
 
 
-root = Tk()
-root.title(f'{program_name} - {program_description}')
-root.resizable(1, 0)
-default_bg = root.cget('bg')
+if __name__ == '__main__':
+    root = Tk()
+    root.title(f'{program_name} - {program_description}')
+    root.resizable(1, 0)
+    default_bg = root.cget('bg')
 
-style = Style()
-style.theme_create('custom_style',
-                   parent='default',
-                   settings={'TCombobox':
-                             {'configure':
-                              {'selectforeground': 'black',
-                               'selectbackground': 'white'}
-                              }
-                             }
-                   )
-style.theme_use('custom_style')
+    style = Style()
+    style.theme_create('custom_style',
+                       parent='default',
+                       settings={'TCombobox':
+                                 {'configure':
+                                  {'selectforeground': 'black',
+                                   'selectbackground': 'white'}
+                                  }
+                                 }
+                       )
+    style.theme_use('custom_style')
 
-menubar = Menu(root, fg=fg_color, borderwidth=1)
-root.config(menu=menubar)
+    menubar = Menu(root, fg=fg_color, borderwidth=1)
+    root.config(menu=menubar)
 
-for op in operation_list:
-    root.bind(
-        f'<{op[2]}>',
-        lambda event, op=op: op_shortcut_key_combination(event, op)
-    )
-
-options_menu = Menu(menubar, tearoff=0)
-# options_menu.add_command(label='Configuration')
-# options_menu.add_separator()
-options_menu.add_command(label='Exit', command=root.quit)
-
-base = IntVar()
-txt_history = StringVar()
-oper = StringVar()
-op1 = StringVar()
-op2 = StringVar()
-op3_active = IntVar()
-op3 = StringVar()
-mod_active = IntVar()
-mod = StringVar()
-res = StringVar()
-time_exec = StringVar()
-
-base_list = [
-    base_default,
-    base_base2,
-    base_base10,
-    base_base16
-]
-
-base_menu = Menu(menubar, tearoff=0)
-
-for b in base_list[1:]:
-    base_menu.add_command(
-        label=f'{b[0]}', command=lambda b=b: set_base(None, b)
-    )
-
-operations_menu = Menu(menubar, tearoff=0)
-
-for op in operation_list:
-    operations_menu.add_command(
-        label=f'{op[0]:<23}{op[2]}', command=lambda op=op[0]: set_operation(op)
-    )
-
-tables_menu = Menu(menubar, tearoff=0)
-tables_menu.add_command(
-    label='Primes',
-    command=lambda: show_doc(table_primes_doc)
-)
-tables_menu.add_command(
-    label='Safe primes',
-    command=lambda: show_doc(table_safe_primes_doc)
-)
-tables_menu.add_command(
-    label='ASCII',
-    command=lambda: show_doc(table_ASCII_doc)
-)
-
-help_menu = Menu(menubar, tearoff=0)
-help_menu.add_command(label='View license', command=lambda: show_doc(license))
-help_menu.add_separator()
-help_menu.add_command(label=f'About {program_name}', command=about)
-
-menubar.add_cascade(label='Options', menu=options_menu)
-menubar.add_cascade(label='Base', menu=base_menu)
-menubar.add_cascade(label='Operations', menu=operations_menu)
-menubar.add_cascade(label='Tables', menu=tables_menu)
-menubar.add_cascade(label='Help', menu=help_menu)
-
-frm_L = Frame(
-    root,
-    bd=5
-)
-frm_L.pack(side='left', expand=True, fill='both')
-frm_L.grid_propagate(False)
-frm_L.grid_columnconfigure(1, weight=1)
-
-frm_R = Frame(
-    root,
-    bd=5,
-    width=150
-)
-frm_R.pack(side='right', expand=True, fill='both')
-frm_R.grid_propagate(True)
-frm_R.grid_columnconfigure(0, weight=1)
-frm_R.grid_rowconfigure(1, weight=1)
-
-frm_L1 = Frame(
-    frm_L,
-    bd=5,
-    width=500,
-    height=167
-)
-frm_L1.pack(expand=True, fill='both')
-frm_L1.grid_propagate(False)
-frm_L1.grid_columnconfigure(1, weight=1)
-
-lbl_op_title = Label(
-    frm_L1,
-    anchor='center',
-    text='Please, select an operation.',
-    font='Helvetica 13 bold',
-    width=lbl_width,
-    fg=fg_color
-)
-lbl_op_title.grid(
-    row=0,
-    column=0,
-    columnspan=2,
-    padx=padx,
-    pady=pady,
-    sticky='we'
-)
-
-lbl_op1 = Label(
-    frm_L1,
-    anchor=lbl_anchor,
-    text='First operator',
-    width=lbl_width,
-    fg=fg_color
-)
-ent_op1 = Entry(
-    frm_L1,
-    font=font,
-    textvariable=op1,
-    validate='key'
-)
-
-lbl_op2 = Label(
-    frm_L1,
-    anchor=lbl_anchor,
-    text='Second operator',
-    width=lbl_width,
-    fg=fg_color
-)
-ent_op2 = Entry(
-    frm_L1,
-    font=font,
-    textvariable=op2,
-    validate='key'
-)
-
-chk_op3 = Checkbutton(
-    frm_L1,
-    anchor=lbl_anchor,
-    text='Third operator',
-    width=lbl_width-3,
-    highlightthickness=0,
-    fg=fg_color,
-    variable=op3_active,
-    command=set_op3
-)
-ent_op3 = Entry(
-    frm_L1,
-    font=font,
-    textvariable=op3,
-    validate='key'
-)
-
-chk_module = Checkbutton(
-    frm_L1,
-    anchor=lbl_anchor,
-    text='Module',
-    width=lbl_width-3,
-    highlightthickness=0,
-    fg=fg_color,
-    variable=mod_active,
-    command=set_module
-)
-lbl_module = Label(
-    frm_L1,
-    anchor=lbl_anchor,
-    text='Module',
-    width=lbl_width,
-    fg=fg_color
-)
-ent_module = Entry(
-    frm_L1,
-    state='disabled',
-    font=font,
-    textvariable=mod,
-    validate='key'
-)
-
-lbl_res = Label(
-    frm_L1,
-    anchor=lbl_anchor,
-    text='Result',
-    width=lbl_width,
-    fg=fg_color
-)
-ent_res = Entry(
-    frm_L1,
-    font=font,
-    textvariable=res,
-    state='readonly',
-    readonlybackground='white'
-)
-
-frm_L2 = Frame(
-    frm_L,
-    bd=5
-)
-frm_L2.pack(expand=True, fill='both')
-frm_L2.grid_columnconfigure((1, 2), weight=1)
-
-btn_calculate = Button(
-    frm_L2,
-    text='Calculate',
-    command=lambda: calculate()
-)
-btn_calculate.grid(row=0, column=0, padx=padx, pady=pady, sticky='w')
-
-cb_base = Combobox(frm_L2, state='readonly')
-cb_base['values'] = [
-    base_default[0],
-    base_base2[0],
-    base_base10[0],
-    base_base16[0]
-]
-
-cb_base.current(0)
-cb_base.bind('<<ComboboxSelected>>', set_base)
-cb_base.grid(row=0, column=1, padx=padx, pady=pady, sticky='w')
-
-lbl_formula = Label(frm_L2)
-lbl_formula.grid(row=0, column=2, padx=padx, pady=pady, sticky='w')
-
-frm_L3 = Frame(
-    frm_L,
-    bd=5
-)
-frm_L3.pack(expand=True, fill='both')
-frm_L3.grid_columnconfigure(1, weight=1)
-
-# Grid for buttons
-rows = 3
-cols = 5
-for i in range(rows):
-    for x, o in enumerate(operation_list[cols*i:cols*(i+1)]):
-        Grid.columnconfigure(frm_L3, x, weight=1)
-        op_btn = Button(
-            frm_L3,
-            text=o[1],
-            command=lambda o=o[0]: set_operation(o)
+    for op in operation_list:
+        root.bind(
+            f'<{op[2]}>',
+            lambda event, op=op: op_shortcut_key_combination(event, op)
         )
-        op_btn.grid(row=i, column=x, padx=padx, pady=pady, sticky='nsew')
 
-lbl_history = Label(
-    frm_R,
-    anchor='center',
-    text='History',
-    width=lbl_width,
-    fg=fg_color
-)
-lbl_history.grid(
-    row=0,
-    column=0,
-    columnspan=2,
-    padx=padx,
-    pady=pady,
-    sticky='n'
-)
+    options_menu = Menu(menubar, tearoff=0)
+    # options_menu.add_command(label='Configuration')
+    # options_menu.add_separator()
+    options_menu.add_command(label='Exit', command=root.quit)
 
-txt_history = Text(
-    frm_R,
-    font=font,
-    state='normal',
-    width=31,
-    height=15
-)
-scrollb = Scrollbar(frm_R)
-scrollb.config(command=txt_history.yview)
-txt_history.config(yscrollcommand=scrollb.set)
-scrollb.grid(row=1, column=1, pady=pady, sticky='nsew')
-txt_history.grid(row=1, column=0, pady=pady, sticky='nsew')
+    base = IntVar()
+    txt_history = StringVar()
+    oper = StringVar()
+    op1 = StringVar()
+    op2 = StringVar()
+    op3_active = IntVar()
+    op3 = StringVar()
+    mod_active = IntVar()
+    mod = StringVar()
+    res = StringVar()
+    time_exec = StringVar()
 
-btn_clear_history = Button(
-    frm_R,
-    text='Clear history',
-    command=lambda: txt_history.delete('1.0', END)
-)
-btn_clear_history.grid(
-    row=2,
-    column=0,
-    columnspan=2,
-    padx=padx,
-    pady=pady,
-    sticky='nsew'
-)
+    base_list = [
+        base_default,
+        base_base2,
+        base_base10,
+        base_base16
+    ]
 
-root.mainloop()
+    base_menu = Menu(menubar, tearoff=0)
+
+    for b in base_list[1:]:
+        base_menu.add_command(
+            label=f'{b[0]}', command=lambda b=b: set_base(None, b)
+        )
+
+    operations_menu = Menu(menubar, tearoff=0)
+
+    for op in operation_list:
+        operations_menu.add_command(
+            label=f'{op[0]:<23}{op[2]}', command=lambda op=op[0]: set_operation(op)
+        )
+
+    tables_menu = Menu(menubar, tearoff=0)
+    tables_menu.add_command(
+        label='Primes',
+        command=lambda: show_doc(table_primes_doc)
+    )
+    tables_menu.add_command(
+        label='Safe primes',
+        command=lambda: show_doc(table_safe_primes_doc)
+    )
+    tables_menu.add_command(
+        label='ASCII',
+        command=lambda: show_doc(table_ASCII_doc)
+    )
+
+    help_menu = Menu(menubar, tearoff=0)
+    help_menu.add_command(label='View license', command=lambda: show_doc(license))
+    help_menu.add_separator()
+    help_menu.add_command(label=f'About {program_name}', command=about)
+
+    menubar.add_cascade(label='Options', menu=options_menu)
+    menubar.add_cascade(label='Base', menu=base_menu)
+    menubar.add_cascade(label='Operations', menu=operations_menu)
+    menubar.add_cascade(label='Tables', menu=tables_menu)
+    menubar.add_cascade(label='Help', menu=help_menu)
+
+    frm_L = Frame(
+        root,
+        bd=5
+    )
+    frm_L.pack(side='left', expand=True, fill='both')
+    frm_L.grid_propagate(False)
+    frm_L.grid_columnconfigure(1, weight=1)
+
+    frm_R = Frame(
+        root,
+        bd=5,
+        width=150
+    )
+    frm_R.pack(side='right', expand=True, fill='both')
+    frm_R.grid_propagate(True)
+    frm_R.grid_columnconfigure(0, weight=1)
+    frm_R.grid_rowconfigure(1, weight=1)
+
+    frm_L1 = Frame(
+        frm_L,
+        bd=5,
+        width=500,
+        height=167
+    )
+    frm_L1.pack(expand=True, fill='both')
+    frm_L1.grid_propagate(False)
+    frm_L1.grid_columnconfigure(1, weight=1)
+
+    lbl_op_title = Label(
+        frm_L1,
+        anchor='center',
+        text='Please, select an operation.',
+        font='Helvetica 13 bold',
+        width=lbl_width,
+        fg=fg_color
+    )
+    lbl_op_title.grid(
+        row=0,
+        column=0,
+        columnspan=2,
+        padx=padx,
+        pady=pady,
+        sticky='we'
+    )
+
+    lbl_op1 = Label(
+        frm_L1,
+        anchor=lbl_anchor,
+        text='First operator',
+        width=lbl_width,
+        fg=fg_color
+    )
+    ent_op1 = Entry(
+        frm_L1,
+        font=font,
+        textvariable=op1,
+        validate='key'
+    )
+
+    lbl_op2 = Label(
+        frm_L1,
+        anchor=lbl_anchor,
+        text='Second operator',
+        width=lbl_width,
+        fg=fg_color
+    )
+    ent_op2 = Entry(
+        frm_L1,
+        font=font,
+        textvariable=op2,
+        validate='key'
+    )
+
+    chk_op3 = Checkbutton(
+        frm_L1,
+        anchor=lbl_anchor,
+        text='Third operator',
+        width=lbl_width-3,
+        highlightthickness=0,
+        fg=fg_color,
+        variable=op3_active,
+        command=set_op3
+    )
+    ent_op3 = Entry(
+        frm_L1,
+        font=font,
+        textvariable=op3,
+        validate='key'
+    )
+
+    chk_module = Checkbutton(
+        frm_L1,
+        anchor=lbl_anchor,
+        text='Module',
+        width=lbl_width-3,
+        highlightthickness=0,
+        fg=fg_color,
+        variable=mod_active,
+        command=set_module
+    )
+    lbl_module = Label(
+        frm_L1,
+        anchor=lbl_anchor,
+        text='Module',
+        width=lbl_width,
+        fg=fg_color
+    )
+    ent_module = Entry(
+        frm_L1,
+        state='disabled',
+        font=font,
+        textvariable=mod,
+        validate='key'
+    )
+
+    lbl_res = Label(
+        frm_L1,
+        anchor=lbl_anchor,
+        text='Result',
+        width=lbl_width,
+        fg=fg_color
+    )
+    ent_res = Entry(
+        frm_L1,
+        font=font,
+        textvariable=res,
+        state='readonly',
+        readonlybackground='white'
+    )
+
+    frm_L2 = Frame(
+        frm_L,
+        bd=5
+    )
+    frm_L2.pack(expand=True, fill='both')
+    frm_L2.grid_columnconfigure((1, 2), weight=1)
+
+    btn_calculate = Button(
+        frm_L2,
+        text='Calculate',
+        command=lambda: calculate()
+    )
+    btn_calculate.grid(row=0, column=0, padx=padx, pady=pady, sticky='w')
+
+    cb_base = Combobox(frm_L2, state='readonly')
+    cb_base['values'] = [
+        base_default[0],
+        base_base2[0],
+        base_base10[0],
+        base_base16[0]
+    ]
+
+    cb_base.current(0)
+    cb_base.bind('<<ComboboxSelected>>', set_base)
+    cb_base.grid(row=0, column=1, padx=padx, pady=pady, sticky='w')
+
+    lbl_formula = Label(frm_L2)
+    lbl_formula.grid(row=0, column=2, padx=padx, pady=pady, sticky='w')
+
+    frm_L3 = Frame(
+        frm_L,
+        bd=5
+    )
+    frm_L3.pack(expand=True, fill='both')
+    frm_L3.grid_columnconfigure(1, weight=1)
+
+    # Grid for buttons
+    rows = 3
+    cols = 5
+    for i in range(rows):
+        for x, o in enumerate(operation_list[cols*i:cols*(i+1)]):
+            Grid.columnconfigure(frm_L3, x, weight=1)
+            op_btn = Button(
+                frm_L3,
+                text=o[1],
+                command=lambda o=o[0]: set_operation(o)
+            )
+            op_btn.grid(row=i, column=x, padx=padx, pady=pady, sticky='nsew')
+
+    lbl_history = Label(
+        frm_R,
+        anchor='center',
+        text='History',
+        width=lbl_width,
+        fg=fg_color
+    )
+    lbl_history.grid(
+        row=0,
+        column=0,
+        columnspan=2,
+        padx=padx,
+        pady=pady,
+        sticky='n'
+    )
+
+    txt_history = Text(
+        frm_R,
+        font=font,
+        state='normal',
+        width=31,
+        height=15
+    )
+    scrollb = Scrollbar(frm_R)
+    scrollb.config(command=txt_history.yview)
+    txt_history.config(yscrollcommand=scrollb.set)
+    scrollb.grid(row=1, column=1, pady=pady, sticky='nsew')
+    txt_history.grid(row=1, column=0, pady=pady, sticky='nsew')
+
+    btn_clear_history = Button(
+        frm_R,
+        text='Clear history',
+        command=lambda: txt_history.delete('1.0', END)
+    )
+    btn_clear_history.grid(
+        row=2,
+        column=0,
+        columnspan=2,
+        padx=padx,
+        pady=pady,
+        sticky='nsew'
+    )
+
+    root.mainloop()

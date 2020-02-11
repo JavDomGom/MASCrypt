@@ -11,6 +11,7 @@ class Factorization(Common):
         (hexadecimal), depending on the self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :n: Number to decompose into factors.
 
         Examples:
@@ -60,5 +61,6 @@ class Factorization(Common):
             factors.append(self.baseTransform(next))
             n //= next
 
-        time_exec.set(f'(time: {time.time() - start_time})\n')
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+
         return factors

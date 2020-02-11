@@ -1,14 +1,16 @@
+import time
 from resources.Common import Common
 
 
 class Substraction(Common):
 
-    def integerSubtraction(self, a, b):
-        ''' This method substract two integers. The result can be returned in
+    def integerSubtraction(self, time_exec, a, b):
+        """ This method substract two integers. The result can be returned in
         base 2 (binary), 10 (decimal) or 16 (hexadecimal), depending on the
         self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: First integer.
             :b: Second integer.
 
@@ -29,17 +31,22 @@ class Substraction(Common):
                 # Base-16 numeral system or hexadecimal:
                 ls.Substraction(16).integerSubtraction('9F', '4D')
                 # Returns 0x52
-        '''
-        return self.baseTransform(
+        """
+        start_time = time.time()
+        res = self.baseTransform(
             int(a, self.base)-int(b, self.base)
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
 
-    def modularSubstraction(self, a, b, n):
-        ''' Method that performs the modular substraction of two integers.
+        return res
+
+    def modularSubstraction(self, time_exec, a, b, n):
+        """ Method that performs the modular substraction of two integers.
         The result can be returned in base 2 (binary), 10 (decimal) or 16
         (hexadecimal), depending on the self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: First integer.
             :b: Second integer.
             :n: Module number.
@@ -62,7 +69,11 @@ class Substraction(Common):
                 # Base-16 numeral system or hexadecimal:
                 ls.Substraction(16).modularSubstraction('53', '96', '21')
                 # Returns 0x10
-        '''
-        return self.baseTransform(
+        """
+        start_time = time.time()
+        res = self.baseTransform(
             (int(a, self.base)-int(b, self.base)) % int(n, self.base)
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+
+        return res

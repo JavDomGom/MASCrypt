@@ -14,9 +14,13 @@ import resources.LCM as llcm
 import resources.Primality as lp
 import resources.Factorization as lf
 import resources.DiscreteLogarithm as ldl
+from tkinter import Tk, StringVar
 
 
 class MASCryptTest(unittest.TestCase):
+
+    root = Tk()
+    time_exec = StringVar()
 
     def test_addition_bin(self):
         """ Test binary addition operation. """
@@ -27,7 +31,7 @@ class MASCryptTest(unittest.TestCase):
 000011'
         self.assertEqual(
             res,
-            la.Addition(2).integerAddition(a, b)
+            la.Addition(2).integerAddition(self.time_exec, a, b)
         )
 
     def test_addition_dec(self):
@@ -37,7 +41,7 @@ class MASCryptTest(unittest.TestCase):
         res = 78615393393774118595
         self.assertEqual(
             res,
-            la.Addition(10).integerAddition(a, b)
+            la.Addition(10).integerAddition(self.time_exec, a, b)
         )
 
     def test_addition_hex(self):
@@ -47,7 +51,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x44301FBC4F97F46C3'.lower()
         self.assertEqual(
             res,
-            la.Addition(16).integerAddition(a, b)
+            la.Addition(16).integerAddition(self.time_exec, a, b)
         )
 
     def test_addition_mod_bin(self):
@@ -59,7 +63,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0b1001110111000011010110000010111010110100110110001110110011'
         self.assertEqual(
             res,
-            la.Addition(2).modularAddition(a, b, n)
+            la.Addition(2).modularAddition(self.time_exec, a, b, n)
         )
 
     def test_addition_mod_dec(self):
@@ -70,7 +74,7 @@ class MASCryptTest(unittest.TestCase):
         res = 177625419406861235
         self.assertEqual(
             res,
-            la.Addition(10).modularAddition(a, b, n)
+            la.Addition(10).modularAddition(self.time_exec, a, b, n)
         )
 
     def test_addition_mod_hex(self):
@@ -81,7 +85,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x2770D60BAD363B3'.lower()
         self.assertEqual(
             res,
-            la.Addition(16).modularAddition(a, b, n)
+            la.Addition(16).modularAddition(self.time_exec, a, b, n)
         )
 
     def test_substraction_bin(self):
@@ -93,7 +97,7 @@ class MASCryptTest(unittest.TestCase):
 011100100001'
         self.assertEqual(
             res,
-            ls.Substraction(2).integerSubtraction(a, b)
+            ls.Substraction(2).integerSubtraction(self.time_exec, a, b)
         )
 
     def test_substraction_dec(self):
@@ -103,7 +107,7 @@ class MASCryptTest(unittest.TestCase):
         res = 4379407824429314471713
         self.assertEqual(
             res,
-            ls.Substraction(10).integerSubtraction(a, b)
+            ls.Substraction(10).integerSubtraction(self.time_exec, a, b)
         )
 
     def test_substraction_hex(self):
@@ -113,7 +117,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0xED687E1538AB8FF721'.lower()
         self.assertEqual(
             res,
-            ls.Substraction(16).integerSubtraction(a, b)
+            ls.Substraction(16).integerSubtraction(self.time_exec, a, b)
         )
 
     def test_substraction_mod_bin(self):
@@ -127,7 +131,7 @@ class MASCryptTest(unittest.TestCase):
 1111110101'
         self.assertEqual(
             res,
-            ls.Substraction(2).modularSubstraction(a, b, n)
+            ls.Substraction(2).modularSubstraction(self.time_exec, a, b, n)
         )
 
     def test_substraction_mod_dec(self):
@@ -138,7 +142,7 @@ class MASCryptTest(unittest.TestCase):
         res = 630347129799884620789
         self.assertEqual(
             res,
-            ls.Substraction(10).modularSubstraction(a, b, n)
+            ls.Substraction(10).modularSubstraction(self.time_exec, a, b, n)
         )
 
     def test_substraction_mod_hex(self):
@@ -149,7 +153,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x222BD2DED4AD2B43F5'.lower()
         self.assertEqual(
             res,
-            ls.Substraction(16).modularSubstraction(a, b, n)
+            ls.Substraction(16).modularSubstraction(self.time_exec, a, b, n)
         )
 
     def test_multiplication_bin(self):
@@ -160,7 +164,7 @@ class MASCryptTest(unittest.TestCase):
 11011000010001101111000110000101100000001010111110010101001'
         self.assertEqual(
             res,
-            lm.Multiplication(2).integerMultiplication(a, b)
+            lm.Multiplication(2).integerMultiplication(self.time_exec, a, b)
         )
 
     def test_multiplication_dec(self):
@@ -170,7 +174,7 @@ class MASCryptTest(unittest.TestCase):
         res = 461638348103246327697836634498497705
         self.assertEqual(
             res,
-            lm.Multiplication(10).integerMultiplication(a, b)
+            lm.Multiplication(10).integerMultiplication(self.time_exec, a, b)
         )
 
     def test_multiplication_hex(self):
@@ -180,7 +184,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x58E8871F6A02D8AEC2378C2C057CA9'.lower()
         self.assertEqual(
             res,
-            lm.Multiplication(16).integerMultiplication(a, b)
+            lm.Multiplication(16).integerMultiplication(self.time_exec, a, b)
         )
 
     def test_multiplication_mod_bin(self):
@@ -193,7 +197,7 @@ class MASCryptTest(unittest.TestCase):
 0100100001101110100011'
         self.assertEqual(
             res,
-            lm.Multiplication(2).modularMultiplication(a, b, n)
+            lm.Multiplication(2).modularMultiplication(self.time_exec, a, b, n)
         )
 
     def test_multiplication_mod_dec(self):
@@ -204,7 +208,9 @@ class MASCryptTest(unittest.TestCase):
         res = 4741223607006646355762083
         self.assertEqual(
             res,
-            lm.Multiplication(10).modularMultiplication(a, b, n)
+            lm.Multiplication(10).modularMultiplication(
+                self.time_exec, a, b, n
+            )
         )
 
     def test_multiplication_mod_hex(self):
@@ -215,7 +221,9 @@ class MASCryptTest(unittest.TestCase):
         res = '0x3EBFE3F2ADD46E5921BA3'.lower()
         self.assertEqual(
             res,
-            lm.Multiplication(16).modularMultiplication(a, b, n)
+            lm.Multiplication(16).modularMultiplication(
+                self.time_exec, a, b, n
+            )
         )
 
     def test_division_bin(self):
@@ -228,7 +236,7 @@ class MASCryptTest(unittest.TestCase):
 1010'
         self.assertEqual(
             res,
-            ld.Division(2).integerDivision(a, b)
+            ld.Division(2).integerDivision(self.time_exec, a, b)
         )
 
     def test_division_dec(self):
@@ -238,7 +246,7 @@ class MASCryptTest(unittest.TestCase):
         res = 2.851054510328713
         self.assertEqual(
             res,
-            ld.Division(10).integerDivision(a, b)
+            ld.Division(10).integerDivision(self.time_exec, a, b)
         )
 
     def test_division_hex(self):
@@ -248,7 +256,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x403677AD'.lower()
         self.assertEqual(
             res,
-            ld.Division(16).integerDivision(a, b)
+            ld.Division(16).integerDivision(self.time_exec, a, b)
         )
 
     def test_square_root_bin(self):
@@ -258,7 +266,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0b10111110100000011110110011100101001110101'
         self.assertEqual(
             res,
-            lsr.SquareRoot(2).integerSquareRoot(a)
+            lsr.SquareRoot(2).integerSquareRoot(self.time_exec, a)
         )
 
     def test_square_root_dec(self):
@@ -267,7 +275,7 @@ class MASCryptTest(unittest.TestCase):
         res = 1636447144565
         self.assertEqual(
             res,
-            lsr.SquareRoot(10).integerSquareRoot(a)
+            lsr.SquareRoot(10).integerSquareRoot(self.time_exec, a)
         )
 
     def test_square_root_hex(self):
@@ -276,7 +284,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x17D03D9CA75'.lower()
         self.assertEqual(
             res,
-            lsr.SquareRoot(16).integerSquareRoot(a)
+            lsr.SquareRoot(16).integerSquareRoot(self.time_exec, a)
         )
 
     def test_primitive_root_bin(self):
@@ -296,7 +304,7 @@ class MASCryptTest(unittest.TestCase):
                '0b110', '0b10']
         self.assertEqual(
             res,
-            lpr.PrimitiveRoot(2).integerPrimitiveRoot(a)
+            lpr.PrimitiveRoot(2).integerPrimitiveRoot(self.time_exec, a)
         )
 
     def test_primitive_root_dec(self):
@@ -308,7 +316,7 @@ class MASCryptTest(unittest.TestCase):
                10, 8, 6, 2]
         self.assertEqual(
             res,
-            lpr.PrimitiveRoot(10).integerPrimitiveRoot(a)
+            lpr.PrimitiveRoot(10).integerPrimitiveRoot(self.time_exec, a)
         )
 
     def test_primitive_root_hex(self):
@@ -322,7 +330,7 @@ class MASCryptTest(unittest.TestCase):
                '0x17', '0x16', '0x11', '0xe', '0xa', '0x8', '0x6', '0x2']
         self.assertEqual(
             res,
-            lpr.PrimitiveRoot(16).integerPrimitiveRoot(a)
+            lpr.PrimitiveRoot(16).integerPrimitiveRoot(self.time_exec, a)
         )
 
     def test_xor_bin(self):
@@ -335,7 +343,7 @@ class MASCryptTest(unittest.TestCase):
 1101101110010010011010000011011101110011'
         self.assertEqual(
             res,
-            lxor.XOR(2).xor(a, b)
+            lxor.XOR(2).xor(self.time_exec, a, b)
         )
 
     def test_xor_dec(self):
@@ -345,7 +353,7 @@ class MASCryptTest(unittest.TestCase):
         res = 650680349832413851101474338675
         self.assertEqual(
             res,
-            lxor.XOR(10).xor(a, b)
+            lxor.XOR(10).xor(self.time_exec, a, b)
         )
 
     def test_xor_hex(self):
@@ -355,7 +363,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x836762B9C18B7EBDB92683773'.lower()
         self.assertEqual(
             res,
-            lxor.XOR(16).xor(a, b)
+            lxor.XOR(16).xor(self.time_exec, a, b)
         )
 
     def test_mod_inverse_bin(self):
@@ -367,7 +375,7 @@ class MASCryptTest(unittest.TestCase):
 101111001110010010101101001'
         self.assertEqual(
             res,
-            lmi.ModInverse(2).modInverse(a, n)
+            lmi.ModInverse(2).modInverse(self.time_exec, a, n)
         )
 
     def test_mod_inverse_dec(self):
@@ -377,7 +385,7 @@ class MASCryptTest(unittest.TestCase):
         res = 140582120745925010153481577
         self.assertEqual(
             res,
-            lmi.ModInverse(10).modInverse(a, n)
+            lmi.ModInverse(10).modInverse(self.time_exec, a, n)
         )
 
     def test_mod_inverse_hex(self):
@@ -387,7 +395,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x74496C0948D4DADDE72569'.lower()
         self.assertEqual(
             res,
-            lmi.ModInverse(16).modInverse(a, n)
+            lmi.ModInverse(16).modInverse(self.time_exec, a, n)
         )
 
     def test_exponentiation_bin(self):
@@ -400,7 +408,7 @@ class MASCryptTest(unittest.TestCase):
 001000000000000'
         self.assertEqual(
             res,
-            le.Exponentiation(2).integerExponentiation(a, b)
+            le.Exponentiation(2).integerExponentiation(self.time_exec, a, b)
         )
 
     def test_exponentiation_dec(self):
@@ -410,7 +418,7 @@ class MASCryptTest(unittest.TestCase):
         res = 708683902714598586017688360818973029566221804465707871043196587872256
         self.assertEqual(
             res,
-            le.Exponentiation(10).integerExponentiation(a, b)
+            le.Exponentiation(10).integerExponentiation(self.time_exec, a, b)
         )
 
     def test_exponentiation_hex(self):
@@ -421,7 +429,7 @@ class MASCryptTest(unittest.TestCase):
 00'.lower()
         self.assertEqual(
             res,
-            le.Exponentiation(16).integerExponentiation(a, b)
+            le.Exponentiation(16).integerExponentiation(self.time_exec, a, b)
         )
 
     def test_exponentiation_mod_bin(self):
@@ -434,7 +442,7 @@ class MASCryptTest(unittest.TestCase):
 010010010000000'
         self.assertEqual(
             res,
-            le.Exponentiation(2).modularExponentiation(a, b, n)
+            le.Exponentiation(2).modularExponentiation(self.time_exec, a, b, n)
         )
 
     def test_exponentiation_mod_dec(self):
@@ -445,7 +453,9 @@ class MASCryptTest(unittest.TestCase):
         res = 21796415852994751931520
         self.assertEqual(
             res,
-            le.Exponentiation(10).modularExponentiation(a, b, n)
+            le.Exponentiation(10).modularExponentiation(
+                self.time_exec, a, b, n
+            )
         )
 
     def test_exponentiation_mod_hex(self):
@@ -456,7 +466,9 @@ class MASCryptTest(unittest.TestCase):
         res = '0x49D9608BFF02D08A480'.lower()
         self.assertEqual(
             res,
-            le.Exponentiation(16).modularExponentiation(a, b, n)
+            le.Exponentiation(16).modularExponentiation(
+                self.time_exec, a, b, n
+            )
         )
 
     def test_mod_bin(self):
@@ -469,7 +481,7 @@ class MASCryptTest(unittest.TestCase):
 111010111001000000101111000011101101000'
         self.assertEqual(
             res,
-            lmod.Module(2).module(a, n)
+            lmod.Module(2).module(self.time_exec, a, n)
         )
 
     def test_mod_dec(self):
@@ -479,7 +491,7 @@ class MASCryptTest(unittest.TestCase):
         res = 327210047628455948990214014824
         self.assertEqual(
             res,
-            lmod.Module(10).module(a, n)
+            lmod.Module(10).module(self.time_exec, a, n)
         )
 
     def test_mod_hex(self):
@@ -489,7 +501,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x42145CEC0E492DBF5C8178768'.lower()
         self.assertEqual(
             res,
-            lmod.Module(16).module(a, n)
+            lmod.Module(16).module(self.time_exec, a, n)
         )
 
     def test_gcd_2_bin(self):
@@ -501,7 +513,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0b10'
         self.assertEqual(
             res,
-            lgcd.GCD(2).greatestCommonDivisor(a, b)
+            lgcd.GCD(2).greatestCommonDivisor(self.time_exec, a, b)
         )
 
     def test_gcd_2_dec(self):
@@ -511,7 +523,7 @@ class MASCryptTest(unittest.TestCase):
         res = 2
         self.assertEqual(
             res,
-            lgcd.GCD(10).greatestCommonDivisor(a, b)
+            lgcd.GCD(10).greatestCommonDivisor(self.time_exec, a, b)
         )
 
     def test_gcd_2_hex(self):
@@ -521,7 +533,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x2'.lower()
         self.assertEqual(
             res,
-            lgcd.GCD(16).greatestCommonDivisor(a, b)
+            lgcd.GCD(16).greatestCommonDivisor(self.time_exec, a, b)
         )
 
     def test_gcd_3_bin(self):
@@ -535,7 +547,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0b1'
         self.assertEqual(
             res,
-            lgcd.GCD(2).greatestCommonDivisor(a, b, c)
+            lgcd.GCD(2).greatestCommonDivisor(self.time_exec, a, b, c)
         )
 
     def test_gcd_3_dec(self):
@@ -546,7 +558,7 @@ class MASCryptTest(unittest.TestCase):
         res = 1
         self.assertEqual(
             res,
-            lgcd.GCD(10).greatestCommonDivisor(a, b, c)
+            lgcd.GCD(10).greatestCommonDivisor(self.time_exec, a, b, c)
         )
 
     def test_gcd_3_hex(self):
@@ -557,7 +569,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x1'.lower()
         self.assertEqual(
             res,
-            lgcd.GCD(16).greatestCommonDivisor(a, b, c)
+            lgcd.GCD(16).greatestCommonDivisor(self.time_exec, a, b, c)
         )
 
     def test_lcm_2_bin(self):
@@ -568,7 +580,7 @@ class MASCryptTest(unittest.TestCase):
 10110000011011011010'
         self.assertEqual(
             res,
-            llcm.LCM(2).leastCommonMultiple(a, b)
+            llcm.LCM(2).leastCommonMultiple(self.time_exec, a, b)
         )
 
     def test_lcm_2_dec(self):
@@ -578,7 +590,7 @@ class MASCryptTest(unittest.TestCase):
         res = 1000456594819820510971610
         self.assertEqual(
             res,
-            llcm.LCM(10).leastCommonMultiple(a, b)
+            llcm.LCM(10).leastCommonMultiple(self.time_exec, a, b)
         )
 
     def test_lcm_2_hex(self):
@@ -588,7 +600,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0xD3DADC557669760B06DA'.lower()
         self.assertEqual(
             res,
-            llcm.LCM(16).leastCommonMultiple(a, b)
+            llcm.LCM(16).leastCommonMultiple(self.time_exec, a, b)
         )
 
     def test_lcm_3_bin(self):
@@ -600,7 +612,7 @@ class MASCryptTest(unittest.TestCase):
 11111110010001111100111100100101011011101101001100101110100110010'
         self.assertEqual(
             res,
-            llcm.LCM(2).leastCommonMultiple(a, b, c)
+            llcm.LCM(2).leastCommonMultiple(self.time_exec, a, b, c)
         )
 
     def test_lcm_3_dec(self):
@@ -611,7 +623,7 @@ class MASCryptTest(unittest.TestCase):
         res = 32707667247462454820693688889907764530
         self.assertEqual(
             res,
-            llcm.LCM(10).leastCommonMultiple(a, b, c)
+            llcm.LCM(10).leastCommonMultiple(self.time_exec, a, b, c)
         )
 
     def test_lcm_3_hex(self):
@@ -622,7 +634,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x189B447FE148980FFC8F9E4ADDA65D32'.lower()
         self.assertEqual(
             res,
-            llcm.LCM(16).leastCommonMultiple(a, b, c)
+            llcm.LCM(16).leastCommonMultiple(self.time_exec, a, b, c)
         )
 
     def test_primality_ok_bin(self):
@@ -630,21 +642,21 @@ class MASCryptTest(unittest.TestCase):
         a = '1010101001110001110110100000110010100110011100110010111011101111\
 1011000000011010101000011100101000010001111110100000001'
         self.assertTrue(
-            lp.Primality(2).is_prime(a)
+            lp.Primality(2).is_prime(self.time_exec, a)
         )
 
     def test_primality_ok_dec(self):
         """ Test decimal primality. """
         a = '442499826945303593556473164314770689'
         self.assertTrue(
-            lp.Primality(10).is_prime(a)
+            lp.Primality(10).is_prime(self.time_exec, a)
         )
 
     def test_primality_ok_hex(self):
         """ Test hexadecimal primality. """
         a = '5538ED0653399777D80D50E508FD01'
         self.assertTrue(
-            lp.Primality(16).is_prime(a)
+            lp.Primality(16).is_prime(self.time_exec, a)
         )
 
     def test_primality_ko_bin(self):
@@ -652,21 +664,21 @@ class MASCryptTest(unittest.TestCase):
         a = '1010111000110111101101101000010010011100110110100101010011101101\
 1000010010000100001010000101110000100'
         self.assertFalse(
-            lp.Primality(2).is_prime(a)
+            lp.Primality(2).is_prime(self.time_exec, a)
         )
 
     def test_primality_ko_dec(self):
         """ Test decimal primality. """
         a = '1725367825470892357176235723652'
         self.assertFalse(
-            lp.Primality(10).is_prime(a)
+            lp.Primality(10).is_prime(self.time_exec, a)
         )
 
     def test_primality_ko_hex(self):
         """ Test hexadecimal primality. """
         a = '15C6F6D0939B4A9DB090850B84'
         self.assertFalse(
-            lp.Primality(16).is_prime(a)
+            lp.Primality(16).is_prime(self.time_exec, a)
         )
 
     def test_factorization_bin(self):
@@ -678,7 +690,7 @@ class MASCryptTest(unittest.TestCase):
                '0b1011110001000001000111101001011110011011100011101']
         self.assertEqual(
             res,
-            lf.Factorization(2).factorization(a)
+            lf.Factorization(2).factorization(self.time_exec, a)
         )
 
     def test_factorization_dec(self):
@@ -687,7 +699,7 @@ class MASCryptTest(unittest.TestCase):
         res = [3, 3, 2, 479, 11423, 582677, 413975744296733]
         self.assertEqual(
             res,
-            lf.Factorization(10).factorization(a)
+            lf.Factorization(10).factorization(self.time_exec, a)
         )
 
     def test_factorization_hex(self):
@@ -697,7 +709,7 @@ class MASCryptTest(unittest.TestCase):
                '0x8e415', '0x178823d2f371d']
         self.assertEqual(
             res,
-            lf.Factorization(16).factorization(a)
+            lf.Factorization(16).factorization(self.time_exec, a)
         )
 
     def test_dlp_bin(self):
@@ -708,7 +720,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0b1111011'
         self.assertEqual(
             res,
-            ldl.DiscreteLogarithm(2).discreteLogarithm(a, y, n)
+            ldl.DiscreteLogarithm(2).discreteLogarithm(self.time_exec, a, y, n)
         )
 
     def test_dlp_dec(self):
@@ -719,7 +731,9 @@ class MASCryptTest(unittest.TestCase):
         res = 123
         self.assertEqual(
             res,
-            ldl.DiscreteLogarithm(10).discreteLogarithm(a, y, n)
+            ldl.DiscreteLogarithm(10).discreteLogarithm(
+                self.time_exec, a, y, n
+            )
         )
 
     def test_dlp_hex(self):
@@ -730,5 +744,7 @@ class MASCryptTest(unittest.TestCase):
         res = '0x7B'.lower()
         self.assertEqual(
             res,
-            ldl.DiscreteLogarithm(16).discreteLogarithm(a, y, n)
+            ldl.DiscreteLogarithm(16).discreteLogarithm(
+                self.time_exec, a, y, n
+            )
         )

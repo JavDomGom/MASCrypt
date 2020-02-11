@@ -1,13 +1,15 @@
+import time
 from resources.Common import Common
 
 
 class GCD(Common):
 
-    def greatestCommonDivisor(self, *args):
-        ''' This method returns the greatest common divisor of all the numbers
+    def greatestCommonDivisor(self, time_exec, *args):
+        """ This method returns the greatest common divisor of all the numbers
         that you pass as argument.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :*args: 2 or more numbers.
 
         Examples:
@@ -27,10 +29,14 @@ class GCD(Common):
                 # Base-16 numeral system or hexadecimal:
                 lgcd.GCD(16).greatestCommonDivisor('D1B', '3D9'))
                 # Returns 0x5
-        '''
+        """
         from math import gcd
         from functools import reduce
 
-        return self.baseTransform(
+        start_time = time.time()
+        res = self.baseTransform(
             reduce(gcd, map(lambda n: int(n, self.base), args))
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+
+        return res

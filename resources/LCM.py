@@ -1,3 +1,4 @@
+import time
 from resources.Common import Common
 
 
@@ -8,11 +9,12 @@ class LCM(Common):
 
         return a * b // gcd(a, b)
 
-    def leastCommonMultiple(self, *args):
-        ''' This method returns the least common multiple of all the numbers
+    def leastCommonMultiple(self, time_exec, *args):
+        """ This method returns the least common multiple of all the numbers
         that you pass as argument.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :*args: 2 or more numbers.
 
         Examples:
@@ -32,9 +34,13 @@ class LCM(Common):
                 # Base-16 numeral system or hexadecimal:
                 llcm.LCM(16).leastCommonMultiple('D1B', '3D9'))
                 # Returns 0xa15c7
-        '''
+        """
         from functools import reduce
 
-        return self.baseTransform(
+        start_time = time.time()
+        res = self.baseTransform(
             reduce(self.lcm, map(lambda n: int(n, self.base), args))
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+
+        return res

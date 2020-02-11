@@ -1,14 +1,16 @@
+import time
 from resources.Common import Common
 
 
 class Multiplication(Common):
 
-    def integerMultiplication(self, a, b):
-        ''' This method multiplies two integers. The result can be returned in
+    def integerMultiplication(self, time_exec, a, b):
+        """ This method multiplies two integers. The result can be returned in
         base 2 (binary), 10 (decimal) or 16 (hexadecimal), depending on the
         self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: First integer.
             :b: Second integer.
 
@@ -30,17 +32,22 @@ class Multiplication(Common):
                 # Base-16 numeral system or hexadecimal:
                 lm.Multiplication(16).integerMultiplication('59', '43')
                 # Returns 0x174b
-        '''
-        return self.baseTransform(
+        """
+        start_time = time.time()
+        res = self.baseTransform(
             int(a, self.base)*int(b, self.base)
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
 
-    def modularMultiplication(self, a, b, n):
-        ''' Method that performs the modular multiplication of two integers.
+        return res
+
+    def modularMultiplication(self, time_exec, a, b, n):
+        """ Method that performs the modular multiplication of two integers.
         The result can be returned in base 2 (binary), 10 (decimal) or 16
         (hexadecimal), depending on the self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: First integer.
             :b: Second integer.
             :n: Module number.
@@ -63,7 +70,11 @@ class Multiplication(Common):
                 # Base-16 numeral system or hexadecimal:
                 lm.Multiplication(16).modularMultiplication('59', '43', '79')
                 # Returns 0x22
-        '''
-        return self.baseTransform(
+        """
+        start_time = time.time()
+        res = self.baseTransform(
             (int(a, self.base)*int(b, self.base)) % int(n, self.base)
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+
+        return res

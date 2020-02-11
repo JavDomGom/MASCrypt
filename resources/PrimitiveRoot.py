@@ -1,27 +1,29 @@
+import time
 from resources.Common import Common
 
 
 class PrimitiveRoot(Common):
 
     def gcd(self, a, b):
-        ''' Return the greatest common divisor of the integers a and b. If
+        """ Return the greatest common divisor of the integers a and b. If
         either a or b is nonzero, then the value of gcd(a, b) is the largest
         positive integer that divides both a and b. gcd(0, 0) returns 0.
 
         Attributes:
             :a: First integer.
             :b: Second integer.
-        '''
+        """
         while b != 0:
             a, b = b, a % b
         return a
 
-    def integerPrimitiveRoot(self, n):
-        ''' This method method returns the primitive root of x. The result can
+    def integerPrimitiveRoot(self, time_exec, n):
+        """ This method method returns the primitive root of x. The result can
         be returned in base 2 (binary), 10 (decimal) or 16 (hexadecimal),
         depending on the self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :n: Module number.
 
         Examples:
@@ -41,7 +43,8 @@ class PrimitiveRoot(Common):
                 # Base-16 numeral system or hexadecimal:
                 lpr.PrimitiveRoot(16).integerPrimitiveRoot('83'))
                 # Returns ['0x80', '0x7f', ..., '0x6', '0x2']
-        '''
+        """
+        start_time = time.time()
         m = int(n, self.base)
         roots = []
         required_set = set(num for num in range(1, m) if self.gcd(num, m) == 1)
@@ -51,4 +54,7 @@ class PrimitiveRoot(Common):
             if required_set == actual_set:
                 roots.append(self.baseTransform(g))
 
-        return roots[::-1]
+        res = roots[::-1]
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+
+        return res

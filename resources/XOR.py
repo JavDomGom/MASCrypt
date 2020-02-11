@@ -1,14 +1,16 @@
+import time
 from resources.Common import Common
 
 
 class XOR(Common):
 
-    def xor(self, a, b):
-        ''' This method execute a XOR operation between two numbers. The result
+    def xor(self, time_exec, a, b):
+        """ This method execute a XOR operation between two numbers. The result
         can be returned in base 2 (binary), 10 (decimal) or 16 (hexadecimal),
         depending on the self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: First numerical expresion.
             :b: Second numerical expresion.
 
@@ -29,7 +31,11 @@ class XOR(Common):
                 # Base-16 numeral system or hexadecimal:
                 lpr.XOR(16).xor('17', '39'))
                 # Returns 0x2e
-        '''
-        return self.baseTransform(
+        """
+        start_time = time.time()
+        res = self.baseTransform(
             int(a, self.base) ^ int(b, self.base)
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+
+        return res

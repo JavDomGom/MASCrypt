@@ -1,14 +1,16 @@
+import time
 from resources.Common import Common
 
 
 class Exponentiation(Common):
 
-    def integerExponentiation(self, a, b):
-        ''' Method that performs exponentiation of two integers. The result can
+    def integerExponentiation(self, time_exec, a, b):
+        """ Method that performs exponentiation of two integers. The result can
         be returned in base 2 (binary), 10 (decimal) or 16 (hexadecimal),
         depending on the self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: Exponentiation base.
             :b: Exponentiation power.
 
@@ -31,17 +33,22 @@ class Exponentiation(Common):
                 # Base-16 numeral system or hexadecimal:
                 le.Exponentiation(16).integerExponentiation('17', '13')
                 # Returns 0x3db870c8b697b5ddf6a707
-        '''
-        return self.baseTransform(
+        """
+        start_time = time.time()
+        res = self.baseTransform(
             pow(int(a, self.base), int(b, self.base))
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
 
-    def modularExponentiation(self, a, b, n):
-        ''' Method that performs the modular exponentiation of two integers.
+        return res
+
+    def modularExponentiation(self, time_exec, a, b, n):
+        """ Method that performs the modular exponentiation of two integers.
         The result can be returned in base 2 (binary), 10 (decimal) or 16
         (hexadecimal), depending on the self.base value.
 
         Attributes:
+            :time_exec: Variable to control execution time.
             :a: Exponentiation base.
             :b: Exponentiation power.
             :n: Module number.
@@ -64,7 +71,11 @@ class Exponentiation(Common):
                 # Base-16 numeral system or hexadecimal:
                 le.Exponentiation(16).modularExponentiation('17', '13', '5F')
                 # Returns 0x2a
-        '''
-        return self.baseTransform(
+        """
+        start_time = time.time()
+        res = self.baseTransform(
             pow(int(a, self.base), int(b, self.base), int(n, self.base))
         )
+        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+
+        return res
