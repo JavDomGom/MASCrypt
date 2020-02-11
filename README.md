@@ -121,4 +121,4 @@ test.py::MASCryptTest::test_xor_hex PASSED                          [100%]
 ```
 
 ## Credits
-Created by Javier Domínguez Gómez \<jdg@member.fsf.org\> and based on [SAMCript 1.0](http://www.criptored.upm.es/software/sw_m001t.htm)
+Created by Javier Domínguez Gómez \<jdg@member.fsf.org\>, based on [SAMCript 1.0](http://www.criptored.upm.es/software/sw_m001t.htm)
