@@ -1,20 +1,37 @@
 import re
+import logging as log
+from pathlib import Path
 from resources import operations as operation
-from tkinter import Tk, Menu, Scrollbar, END, IntVar, StringVar, PhotoImage
-from tkinter import Frame, Grid, Label, Entry, Text, Checkbutton, Button
-from tkinter import Toplevel
+from tkinter import Tk, Menu, Scrollbar, END, IntVar, StringVar, \
+                    PhotoImage, Frame, Grid, Label, Entry, Text, \
+                    Checkbutton, Button, Toplevel
 from tkinter import messagebox as MessageBox
 from tkinter.ttk import Combobox, Style
 
+log_path = 'log'
+log_file = f'{log_path}/mascrypt.log'
+log_format = '%(asctime)-15s [%(levelname)s] %(message)s'
+
+# Create log dir if not exist.
+Path(log_path).mkdir(parents=True, exist_ok=True)
+
+# Configure logging function to save logs.
+log.basicConfig(
+    handlers=[log.FileHandler(log_file, 'a', 'utf-8')],
+    level=log.DEBUG,
+    format=log_format
+)
+
 program_name = 'MASCrypt'
 program_version = '0.1.0'
-updated = 'Updated: 2020/01/29'
-copyleft = 'Copyleft 2020, Javier Domínguez Gómez'
+updated = 'Updated: 2020/02/13'
+copyleft = 'Copyleft 2020, written by Javier Domínguez Gómez'
 program_description = 'Modular Arithmetic Software for Cryptography'
-about_text = """This program  is free software:  you  can  redistribute  it and/or
-modify  it under  the terms of the  GNU General Public License
-as published by the Free Software Foundation, either version 3
-of the License."""
+about_text = '''This program is free software:  you can  redistribute it
+and/or modify it under the terms of the GNU General
+Public License as published by the Free Software
+Foundation, either version 3 of the License.'''
+gplv3_image = 'img/gplv3-127x51.png'
 lbl_width = 14
 lbl_anchor = 'e'
 lbl_sticky = 'e'
@@ -47,7 +64,19 @@ base_base2 = ('Binary (Base-2)', 2)
 base_base10 = ('Decimal (Base-10)', 10)
 base_base16 = ('Hexadecimal (Base-16)', 16)
 
+base_list = [
+    base_default,
+    base_base2,
+    base_base10,
+    base_base16
+]
+
 # All available operations.
+''' Tuple elements:
+    1. Name.
+    2. Symbol for button.
+    3. Shortcut key.
+'''
 op_addition = ('Addition', '+', 'Control-Shift-A')
 op_substraction = ('Substraction', '-', 'Control-Shift-S')
 op_multiplication = ('Multiplication', 'x', 'Control-Shift-M')
@@ -84,7 +113,7 @@ operation_list = [
 
 
 def clear_all_entries():
-    ''' Empty all entries.'''
+    """ Empty all entries."""
     ops = [op1, op2, op3, mod, res]
     for op in ops:
         op.set('')
@@ -95,7 +124,7 @@ def clear_all_entries():
 
 
 def clear_all_widgets():
-    ''' Clear all widgets in grid.'''
+    """ Clear all widgets in grid."""
     clear_all_entries()
     widgets = [
         lbl_op1, ent_op1,
@@ -113,6 +142,12 @@ def clear_all_widgets():
 
 
 def set_base(event, b=None):
+    """ Set numeric base for operations.
+
+    Attributes:
+        :event: Bind event from combobox.
+        :b: Base, can be Base-2, Base10 and Base-16.
+    """
     clear_all_entries()
     set_module()
     entries = [ent_op1, ent_op2, ent_op3, ent_module]
@@ -139,10 +174,14 @@ def set_base(event, b=None):
             for ent in entries:
                 ent['validatecommand'] = (frm_L1.register(validate_hex), '%P')
 
-    print(f'base.get() = {base.get()}')
+    log.debug(f'Base selected: {base.get()}.')
 
 
 def set_module():
+    """ This function activates or deactivates data entry in the module field
+    depending on the operation or if the checkbox is activated in some
+    operations where it's optional.
+    """
     if mod_active.get() or oper.get() in [
         op_mod_inverse[0],
         op_module[0],
@@ -154,6 +193,10 @@ def set_module():
 
 
 def set_op3():
+    """ This function activates or deactivates the entry of data in the
+    field of a third operator depending on whether the corresponding checkbox
+    is activated.
+    """
     if op3_active.get():
         ent_op3.config(state='normal')
     else:
@@ -161,6 +204,13 @@ def set_op3():
 
 
 def set_formula(selected_op, op3=False):
+    """ This function change the image of the formula depending on the
+    operation that is selected.
+
+    Attributes:
+        :selected_op: Selected operation.
+        :op3: Third operator activated. False by default.
+    """
     filename = selected_op.replace(" ", "_").lower()
 
     if selected_op in [
@@ -171,12 +221,21 @@ def set_formula(selected_op, op3=False):
     ] and op3:
         filename = f'{filename}_mod'
 
-    op_formula = PhotoImage(file=f'img/formulas/{filename}.png')
+    file = f'img/formulas/{filename}.png'
+    log.debug(f'Set the formula with image "{file}".')
+
+    op_formula = PhotoImage(file=file)
     lbl_formula.configure(image=op_formula)
     lbl_formula.image = op_formula
 
 
 def set_operation(selected_op):
+    """ This function builds the necessary data entries depending on the
+    operation it receives as attribute.
+
+    Attributes:
+        :selected_op: Selected operation.
+    """
     clear_all_widgets()
     set_module()
 
@@ -314,16 +373,24 @@ def set_operation(selected_op):
 
     oper.set(selected_op)
 
+    log.debug(f'Operation selected: {oper.get()}')
+
     for op in operation_list:
         if selected_op == op[0]:
             set_formula(selected_op)
             break
 
-    print(f'oper.get() = {oper.get()}')
 
+def empty_entries(op):
+    """ This function checks if there is any necessary data entry
+    that is empty.
 
-def check_empty_entries(op):
+    Attributes:
+        :op: Operation to check.
+    """
+    widgets_with_error = []
     widgets = [ent_op1, ent_op2, ent_op3, ent_module]
+
     for widget in widgets:
         if widget in [ent_op3, ent_module]:
             if op3_active.get() and not ent_op3.get() or \
@@ -335,11 +402,13 @@ def check_empty_entries(op):
                 op_discreteLogarithm[0]
                ] and not ent_module.get():
                 set_color = 'red'
+                widgets_with_error.append(widget)
             else:
                 set_color = default_bg
         else:
             if not widget.get():
                 set_color = 'red'
+                widgets_with_error.append(widget)
             else:
                 set_color = default_bg
 
@@ -348,8 +417,20 @@ def check_empty_entries(op):
             highlightcolor=set_color
         )
 
+    if len(widgets_with_error) != 0:
+        return True
+    else:
+        return False
+
 
 def check_items(op):
+    """ This function checks whether a base and an operation have been
+    selected before pressing the Calculate button. Returns a list of
+    items with error.
+
+    Attributes:
+        :op: Operation to check.
+    """
     items_with_error = []
 
     if not base.get():
@@ -361,167 +442,190 @@ def check_items(op):
     return items_with_error
 
 
+def exec_addition():
+    if mod_active.get():
+        operation.addition(res, time_exec, base, op1, op2, mod)
+        return (
+            f'{op1.get()} + {op2.get()} mod {mod.get()} = {res.get()}',
+            time_exec.get()
+        )
+    else:
+        operation.addition(res, time_exec, base, op1, op2)
+        return (
+            f'{op1.get()} + {op2.get()} = {res.get()}',
+            time_exec.get()
+        )
+
+
+def exec_substraction():
+    if mod_active.get():
+        operation.substraction(res, time_exec, base, op1, op2, mod)
+        return (
+            f'{op1.get()} - {op2.get()} mod {mod.get()} = {res.get()}',
+            time_exec.get()
+        )
+    else:
+        operation.substraction(res, time_exec, base, op1, op2)
+        return (f'{op1.get()} - {op2.get()} = {res.get()}', time_exec.get())
+
+
+def exec_multiplication():
+    if mod_active.get():
+        operation.multiplication(res, time_exec, base, op1, op2, mod)
+        return (
+            f'{op1.get()} x {op2.get()} mod {mod.get()} = {res.get()}',
+            time_exec.get()
+        )
+    else:
+        operation.multiplication(res, time_exec, base, op1, op2)
+        return (f'{op1.get()} x {op2.get()} = {res.get()}', time_exec.get())
+
+
+def exec_division():
+    operation.division(res, time_exec, base, op1, op2)
+    return (f'{op1.get()}/{op2.get()} = {res.get()}', time_exec.get())
+
+
+def exec_square_root():
+    operation.square_root(res, time_exec, base, op1)
+    return (f'√{op1.get()} = {res.get()}', time_exec.get())
+
+
+def exec_primitive_root():
+    operation.primitive_root(res, time_exec, base, op1)
+    return (
+        f'|∝|={len(eval(res.get()))}, {op1.get()} = {res.get()}',
+        time_exec.get()
+    )
+
+
+def exec_xor():
+    operation.xor(res, time_exec, base, op1, op2)
+    return (f'{op1.get()} XOR {op2.get()} = {res.get()}', time_exec.get())
+
+
+def exec_mod_inverse():
+    operation.mod_inverse(res, time_exec, base, op1, mod)
+    return (f'inv({op1.get()}, {mod.get()}) = {res.get()}', time_exec.get())
+
+
+def exec_exponentation():
+    if mod_active.get():
+        operation.exponentation(res, time_exec, base, op1, op2, mod)
+        return (
+            f'{op1.get()}^{op2.get()} mod {mod.get()} = {res.get()}',
+            time_exec.get()
+        )
+    else:
+        operation.exponentation(res, time_exec, base, op1, op2)
+        return (f'{op1.get()}^{op2.get()} = {res.get()}', time_exec.get())
+
+
+def exec_module():
+    operation.module(res, time_exec, base, op1, mod)
+    return (f'{op1.get()} mod {mod.get()} = {res.get()}', time_exec.get())
+
+
+def exec_gcd():
+    if op3_active.get():
+        operation.gcd(res, time_exec, base, op1, op2, op3)
+        return (
+            f'gdc({op1.get()}, {op2.get()}, {op3.get()}) = {res.get()}',
+            time_exec.get()
+        )
+    else:
+        operation.gcd(res, time_exec, base, op1, op2)
+        return (
+            f'gdc({op1.get()}, {op2.get()}) = {res.get()}',
+            time_exec.get()
+        )
+
+
+def exec_lcm():
+    if op3_active.get():
+        operation.lcm(res, time_exec, base, op1, op2, op3)
+        return (
+            f'lcm({op1.get()}, {op2.get()}, {op3.get()}) = {res.get()}',
+            time_exec.get()
+        )
+    else:
+        operation.lcm(res, time_exec, base, op1, op2)
+        return (
+            f'lcm({op1.get()}, {op2.get()}) = {res.get()}',
+            time_exec.get()
+        )
+
+
+def exec_primality():
+    operation.primality(res, time_exec, base, op1)
+    return (f'{op1.get()} {res.get().lower()}', time_exec.get())
+
+
+def exec_factorization():
+    operation.factorization(res, time_exec, base, op1)
+    return (f'{op1.get()} = {res.get()}', time_exec.get())
+
+
+def exec_discreteLogarithm():
+    operation.discreteLogarithm(res, time_exec, base, op1, op2, mod)
+    return (
+        f'{op1.get()}^{res.get()} = {op2.get()} mod {mod.get()}',
+        time_exec.get()
+    )
+
+
 def calculate():
+    """ Executes the operations that are selected in each case."""
     op = oper.get()
     items_with_error = check_items(op)
 
+    # Show a pop-up window with the items you need to select.
     if len(items_with_error) != 0:
+        message = 'You must select the following items'
+        items_with_error = ', '.join(items_with_error)
+
+        log.error(f'{message}: {items_with_error}')
+
         MessageBox.showerror(
             title=f'Missing information:',
-            message=f'You must select the following items:\
-            \n\n{", ".join(items_with_error)}'
+            message=f'{message}:\n\n{items_with_error}'
         )
         return
 
-    check_empty_entries(op)
+    if empty_entries(op):
+        log.error('There are empty mandatory fields.')
+        return
 
-    if op == op_addition[0]:
-        if mod_active.get():
-            operation.addition(res, time_exec, base, op1, op2, mod)
-            txt_history.insert(
-                END,
-                f'{op1.get()} + {op2.get()} mod {mod.get()} = {res.get()}\n\
-{time_exec.get()}'
-            )
-        else:
-            operation.addition(res, time_exec, base, op1, op2)
-            txt_history.insert(
-                END,
-                f'{op1.get()} + {op2.get()} = {res.get()}\n{time_exec.get()}'
-            )
-    elif op == op_substraction[0]:
-        if mod_active.get():
-            operation.substraction(res, time_exec, base, op1, op2, mod)
-            txt_history.insert(
-                END,
-                f'{op1.get()} - {op2.get()} mod {mod.get()} = {res.get()}\n\
-{time_exec.get()}'
-            )
-        else:
-            operation.substraction(res, time_exec, base, op1, op2)
-            txt_history.insert(
-                END,
-                f'{op1.get()} - {op2.get()} = {res.get()}\n{time_exec.get()}'
-            )
-    elif op == op_multiplication[0]:
-        if mod_active.get():
-            operation.multiplication(res, time_exec, base, op1, op2, mod)
-            txt_history.insert(
-                END,
-                f'{op1.get()} x {op2.get()} mod {mod.get()} = {res.get()}\n\
-{time_exec.get()}'
-            )
-        else:
-            operation.multiplication(res, time_exec, base, op1, op2)
-            txt_history.insert(
-                END,
-                f'{op1.get()} x {op2.get()} = {res.get()}\n{time_exec.get()}'
-            )
-    elif op == op_division[0]:
-        operation.division(res, time_exec, base, op1, op2)
-        txt_history.insert(
-            END,
-            f'{op1.get()}/{op2.get()} = {res.get()}\n{time_exec.get()}'
-        )
-    elif op == op_square_root[0]:
-        operation.square_root(res, time_exec, base, op1)
-        txt_history.insert(
-            END,
-            f'√{op1.get()} = {res.get()}\n{time_exec.get()}'
-        )
-    elif op == op_primitive_root[0]:
-        operation.primitive_root(res, time_exec, base, op1)
-        txt_history.insert(
-            END,
-            f'|∝|={len(eval(res.get()))}, {op1.get()} = {res.get()}\n\
-{time_exec.get()}'
-        )
-    elif op == op_xor[0]:
-        operation.xor(res, time_exec, base, op1, op2)
-        txt_history.insert(
-            END,
-            f'{op1.get()} XOR {op2.get()} = {res.get()}\n{time_exec.get()}'
-        )
-    elif op == op_mod_inverse[0]:
-        operation.mod_inverse(res, time_exec, base, op1, mod)
-        txt_history.insert(
-            END,
-            f'inv({op1.get()}, {mod.get()}) = {res.get()}\n{time_exec.get()}'
-        )
-    elif op == op_exponentation[0]:
-        if mod_active.get():
-            operation.exponentation(res, time_exec, base, op1, op2, mod)
-            txt_history.insert(
-                END,
-                f'{op1.get()}^{op2.get()} mod {mod.get()} = {res.get()}\n\
-{time_exec.get()}'
-            )
-        else:
-            operation.exponentation(res, time_exec, base, op1, op2)
-            txt_history.insert(
-                END,
-                f'{op1.get()}^{op2.get()} = {res.get()}\n{time_exec.get()}'
-            )
-    elif op == op_module[0]:
-        operation.module(res, time_exec, base, op1, mod)
-        txt_history.insert(
-            END,
-            f'{op1.get()} mod {mod.get()} = {res.get()}\n{time_exec.get()}'
-        )
-    elif op == op_gcd[0]:
-        if op3_active.get():
-            operation.gcd(res, time_exec, base, op1, op2, op3)
-            txt_history.insert(
-                END,
-                f'gdc({op1.get()}, {op2.get()}, {op3.get()}) = {res.get()}\n\
-{time_exec.get()}'
-            )
-        else:
-            operation.gcd(res, time_exec, base, op1, op2)
-            txt_history.insert(
-                END,
-                f'gdc({op1.get()}, {op2.get()}) = {res.get()}\n\
-{time_exec.get()}'
-            )
-    elif op == op_lcm[0]:
-        if op3_active.get():
-            operation.lcm(res, time_exec, base, op1, op2, op3)
-            txt_history.insert(
-                END,
-                f'lcm({op1.get()}, {op2.get()}, {op3.get()}) = {res.get()}\n\
-{time_exec.get()}'
-            )
-        else:
-            operation.lcm(res, time_exec, base, op1, op2)
-            txt_history.insert(
-                END,
-                f'lcm({op1.get()}, {op2.get()}) = {res.get()}\n\
-{time_exec.get()}'
-            )
-    elif op == op_primality[0]:
-        operation.primality(res, time_exec, base, op1)
-        txt_history.insert(
-            END,
-            f'{op1.get()} {res.get().lower()}\n{time_exec.get()}'
-        )
-    elif op == op_factorization[0]:
-        operation.factorization(res, time_exec, base, op1)
-        txt_history.insert(
-            END,
-            f'{op1.get()} = {res.get()}\n{time_exec.get()}'
-        )
-    elif op == op_discreteLogarithm[0]:
-        operation.discreteLogarithm(res, time_exec, base, op1, op2, mod)
-        txt_history.insert(
-            END,
-            f'{op1.get()}^{res.get()} = {op2.get()} mod {mod.get()}\n\
-{time_exec.get()}'
-        )
+    switcher = {
+        op_addition[0]: exec_addition,
+        op_substraction[0]: exec_substraction,
+        op_multiplication[0]: exec_multiplication,
+        op_division[0]: exec_division,
+        op_square_root[0]: exec_square_root,
+        op_primitive_root[0]: exec_primitive_root,
+        op_xor[0]: exec_xor,
+        op_mod_inverse[0]: exec_mod_inverse,
+        op_exponentation[0]: exec_exponentation,
+        op_module[0]: exec_module,
+        op_gcd[0]: exec_gcd,
+        op_lcm[0]: exec_lcm,
+        op_primality[0]: exec_primality,
+        op_factorization[0]: exec_factorization,
+        op_discreteLogarithm[0]: exec_discreteLogarithm
+    }
 
+    # Get the function from switcher dictionary.
+    exec_op = switcher.get(op, lambda: 'Invalid operation')
+    # Execute the operation function.
+    msg, timer = exec_op()
+
+    log.info(f'{msg} {timer}')
+    txt_history.insert(END, f'{msg}\n{timer}')
     txt_history.see(END)
 
 
 def about():
+    """ This function shows information about the program."""
     tpl_about = Toplevel(root)
     tpl_about.resizable(0, 0)
     tpl_about.title(f'About {program_name}')
@@ -541,7 +645,7 @@ def about():
     )
     lbl_gplv3.grid(row=1, column=0, padx=padx+15, pady=pady)
 
-    img_gplv3 = PhotoImage(file=f'img/gplv3-127x51.png')
+    img_gplv3 = PhotoImage(file=gplv3_image)
 
     lbl_img_gplv3 = Label(tpl_about)
     lbl_img_gplv3.grid(row=2, column=0, padx=padx, pady=pady)
@@ -558,10 +662,23 @@ def about():
 
 
 def op_shortcut_key_combination(event, selected_op):
+    """ This function allows you to select an operation using
+    a key combination.
+
+    Attributes:
+        :event: Bind event.
+        :selected_op: Selected operation.
+    """
     set_operation(selected_op[0])
 
 
 def show_doc(doc):
+    """ This function opens a pop-up window and shows a document
+    with information.
+
+    Attributes:
+        :doc: Document to open and show in a new window.
+    """
     tpl_table = Toplevel(root)
     tpl_table.resizable(1, 1)
     tpl_table.title(f'{doc[1]}')
@@ -587,6 +704,7 @@ def show_doc(doc):
     txt_doc.grid(row=0, column=0, pady=pady, sticky='nsew')
 
     with open(doc[0], 'r') as f:
+        log.debug(f'Showing information from "{doc[0]}".')
         txt_doc.insert(
             END,
             f.read().rstrip()
@@ -594,29 +712,35 @@ def show_doc(doc):
 
 
 def validate_bin(value):
+    """ Validate characters from the binary system."""
     if re.match(r'^[01]*$', value):
         return True
     return False
 
 
 def validate_dec(value):
+    """ Validate characters from the decimal system."""
     if re.match(r'^[0-9]*$', value):
         return True
     return False
 
 
 def validate_hex(value):
+    """ Validate characters from the hexadecimal system."""
     if re.match(r'^[0-9a-fA-F]*$', value):
         return True
     return False
 
 
 if __name__ == '__main__':
+    log.info(f'Start {program_name} {program_version}.')
+    # Create main UI program.
     root = Tk()
     root.title(f'{program_name} - {program_description}')
     root.resizable(1, 0)
     default_bg = root.cget('bg')
 
+    # Create custom style for combobox.
     style = Style()
     style.theme_create('custom_style',
                        parent='default',
@@ -629,20 +753,7 @@ if __name__ == '__main__':
                        )
     style.theme_use('custom_style')
 
-    menubar = Menu(root, fg=fg_color, borderwidth=1)
-    root.config(menu=menubar)
-
-    for op in operation_list:
-        root.bind(
-            f'<{op[2]}>',
-            lambda event, op=op: op_shortcut_key_combination(event, op)
-        )
-
-    options_menu = Menu(menubar, tearoff=0)
-    # options_menu.add_command(label='Configuration')
-    # options_menu.add_separator()
-    options_menu.add_command(label='Exit', command=root.quit)
-
+    # Create all Tkinter data type variables.
     base = IntVar()
     txt_history = StringVar()
     oper = StringVar()
@@ -655,27 +766,38 @@ if __name__ == '__main__':
     res = StringVar()
     time_exec = StringVar()
 
-    base_list = [
-        base_default,
-        base_base2,
-        base_base10,
-        base_base16
-    ]
+    # Build menubar.
+    menubar = Menu(root, fg=fg_color, borderwidth=1)
+    root.config(menu=menubar)
 
+    # Build Options menu.
+    options_menu = Menu(menubar, tearoff=0)
+    options_menu.add_command(
+        label='Exit',
+        command=root.quit
+    )
+
+    # Build Base menu with all available bases.
     base_menu = Menu(menubar, tearoff=0)
-
     for b in base_list[1:]:
         base_menu.add_command(
-            label=f'{b[0]}', command=lambda b=b: set_base(None, b)
+            label=f'{b[0]}',
+            command=lambda b=b: set_base(None, b)
         )
 
+    # Build Operations menu with all available operations.
     operations_menu = Menu(menubar, tearoff=0)
-
     for op in operation_list:
         operations_menu.add_command(
-            label=f'{op[0]:<23}{op[2]}', command=lambda op=op[0]: set_operation(op)
+            label=f'{op[0]:<23}{op[2]}',
+            command=lambda op=op[0]: set_operation(op)
+        )
+        root.bind(
+            f'<{op[2]}>',
+            lambda event, op=op: op_shortcut_key_combination(event, op)
         )
 
+    # Build Tables menu.
     tables_menu = Menu(menubar, tearoff=0)
     tables_menu.add_command(
         label='Primes',
@@ -690,17 +812,26 @@ if __name__ == '__main__':
         command=lambda: show_doc(table_ASCII_doc)
     )
 
+    # Build Help menu.
     help_menu = Menu(menubar, tearoff=0)
-    help_menu.add_command(label='View license', command=lambda: show_doc(license))
+    help_menu.add_command(
+        label='View license',
+        command=lambda: show_doc(license)
+    )
     help_menu.add_separator()
-    help_menu.add_command(label=f'About {program_name}', command=about)
+    help_menu.add_command(
+        label=f'About {program_name} {program_version}',
+        command=about
+    )
 
+    # Build menubar with all previously menus.
     menubar.add_cascade(label='Options', menu=options_menu)
     menubar.add_cascade(label='Base', menu=base_menu)
     menubar.add_cascade(label='Operations', menu=operations_menu)
     menubar.add_cascade(label='Tables', menu=tables_menu)
     menubar.add_cascade(label='Help', menu=help_menu)
 
+    # Build left parent frame.
     frm_L = Frame(
         root,
         bd=5
@@ -709,6 +840,7 @@ if __name__ == '__main__':
     frm_L.grid_propagate(False)
     frm_L.grid_columnconfigure(1, weight=1)
 
+    # Build right frame.
     frm_R = Frame(
         root,
         bd=5,
@@ -719,6 +851,7 @@ if __name__ == '__main__':
     frm_R.grid_columnconfigure(0, weight=1)
     frm_R.grid_rowconfigure(1, weight=1)
 
+    # Create frm_L1 frame son of frm_L.
     frm_L1 = Frame(
         frm_L,
         bd=5,
@@ -729,6 +862,7 @@ if __name__ == '__main__':
     frm_L1.grid_propagate(False)
     frm_L1.grid_columnconfigure(1, weight=1)
 
+    # START: Content of the frm_L1 frame.
     lbl_op_title = Label(
         frm_L1,
         anchor='center',
@@ -830,7 +964,9 @@ if __name__ == '__main__':
         state='readonly',
         readonlybackground='white'
     )
+    # END: Content of the frm_L1 frame.
 
+    # Create frm_L2 frame son of frm_L.
     frm_L2 = Frame(
         frm_L,
         bd=5
@@ -838,6 +974,7 @@ if __name__ == '__main__':
     frm_L2.pack(expand=True, fill='both')
     frm_L2.grid_columnconfigure((1, 2), weight=1)
 
+    # START: Content of the frm_L2 frame.
     btn_calculate = Button(
         frm_L2,
         text='Calculate',
@@ -859,7 +996,9 @@ if __name__ == '__main__':
 
     lbl_formula = Label(frm_L2)
     lbl_formula.grid(row=0, column=2, padx=padx, pady=pady, sticky='w')
+    # END: Content of the frm_L2 frame.
 
+    # Create frm_L3 frame son of frm_L.
     frm_L3 = Frame(
         frm_L,
         bd=5
@@ -867,7 +1006,8 @@ if __name__ == '__main__':
     frm_L3.pack(expand=True, fill='both')
     frm_L3.grid_columnconfigure(1, weight=1)
 
-    # Grid for buttons
+    # START: Content of the frm_L3 frame.
+    # Operations buttons grid.
     rows = 3
     cols = 5
     for i in range(rows):
@@ -879,7 +1019,9 @@ if __name__ == '__main__':
                 command=lambda o=o[0]: set_operation(o)
             )
             op_btn.grid(row=i, column=x, padx=padx, pady=pady, sticky='nsew')
+    # END: Content of the frm_L3 frame.
 
+    # START: Content of the frm_R frame.
     lbl_history = Label(
         frm_R,
         anchor='center',
@@ -922,5 +1064,6 @@ if __name__ == '__main__':
         pady=pady,
         sticky='nsew'
     )
+    # END: Content of the frm_R frame.
 
     root.mainloop()
