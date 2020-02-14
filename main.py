@@ -620,7 +620,7 @@ def calculate():
     msg, timer = exec_op()
 
     log.info(f'{msg} {timer}')
-    txt_history.insert(END, f'{msg}\n{timer}')
+    txt_history.insert(END, f'{msg}\n\n{timer}\n\n')
     txt_history.see(END)
 
 

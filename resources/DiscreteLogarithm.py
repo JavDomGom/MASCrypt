@@ -57,12 +57,12 @@ class DiscreteLogarithm(Common):
                 res = self.baseTransform(
                     q*N + baby_steps[giant_step]
                 )
-                time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+                time_exec.set(f'(time: {time.time() - start_time})')
 
                 return res
             else:
                 giant_step = giant_step * giant_stride % n
 
-        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+        time_exec.set(f'(time: {time.time() - start_time})')
 
         return 'No Match'

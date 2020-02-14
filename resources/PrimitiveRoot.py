@@ -55,6 +55,6 @@ class PrimitiveRoot(Common):
                 roots.append(self.baseTransform(g))
 
         res = roots[::-1]
-        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+        time_exec.set(f'(time: {time.time() - start_time})')
 
         return res

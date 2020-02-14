@@ -43,7 +43,7 @@ class ModInverse(Common):
 
         if (n == 1):
             res = self.baseTransform(0)
-            time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+            time_exec.set(f'(time: {time.time() - start_time})')
 
             return res
 
@@ -60,6 +60,6 @@ class ModInverse(Common):
             x = x + n0
 
         res = self.baseTransform(x)
-        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+        time_exec.set(f'(time: {time.time() - start_time})')
 
         return res

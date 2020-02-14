@@ -38,7 +38,7 @@ class Primality(Common):
         n = int(n, self.base)
 
         if n != int(n):
-            time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+            time_exec.set(f'(time: {time.time() - start_time})')
 
             return False
 
@@ -46,12 +46,12 @@ class Primality(Common):
 
         # Miller-Rabin test for prime
         if n == 0 or n == 1 or n == 4 or n == 6 or n == 8 or n == 9:
-            time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+            time_exec.set(f'(time: {time.time() - start_time})')
 
             return False
 
         if n == 2 or n == 3 or n == 5 or n == 7:
-            time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+            time_exec.set(f'(time: {time.time() - start_time})')
 
             return True
 
@@ -66,27 +66,27 @@ class Primality(Common):
 
         def trial_composite(a):
             if pow(a, d, n) == 1:
-                time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+                time_exec.set(f'(time: {time.time() - start_time})')
 
                 return False
 
             for i in range(s):
                 if pow(a, 2 ** i * d, n) == n - 1:
-                    time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+                    time_exec.set(f'(time: {time.time() - start_time})')
 
                     return False
 
-            time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+            time_exec.set(f'(time: {time.time() - start_time})')
 
             return True
 
         for i in range(8):  # Number of trials
             a = random.randrange(2, n)
             if trial_composite(a):
-                time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+                time_exec.set(f'(time: {time.time() - start_time})')
 
                 return False
 
-        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+        time_exec.set(f'(time: {time.time() - start_time})')
 
         return True

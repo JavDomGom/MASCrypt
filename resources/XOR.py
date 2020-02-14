@@ -36,6 +36,6 @@ class XOR(Common):
         res = self.baseTransform(
             int(a, self.base) ^ int(b, self.base)
         )
-        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+        time_exec.set(f'(time: {time.time() - start_time})')
 
         return res

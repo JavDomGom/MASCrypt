@@ -61,6 +61,6 @@ class Factorization(Common):
             factors.append(self.baseTransform(next))
             n //= next
 
-        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+        time_exec.set(f'(time: {time.time() - start_time})')
 
         return factors

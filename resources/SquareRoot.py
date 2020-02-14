@@ -37,6 +37,6 @@ class SquareRoot(Common):
         res = self.baseTransform(
             int(math.sqrt(int(x, self.base)))
         )
-        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+        time_exec.set(f'(time: {time.time() - start_time})')
 
         return res

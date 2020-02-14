@@ -37,6 +37,6 @@ class GCD(Common):
         res = self.baseTransform(
             reduce(gcd, map(lambda n: int(n, self.base), args))
         )
-        time_exec.set(f'\n(time: {time.time() - start_time})\n\n')
+        time_exec.set(f'(time: {time.time() - start_time})')
 
         return res
