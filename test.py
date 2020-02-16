@@ -685,7 +685,7 @@ class MASCryptTest(unittest.TestCase):
         """ Test binary factorization. """
         a = '1001100110000110100110100011110110100001111011111110111101000010\
 0011011010110010011101111010010'
-        res = ['0b11', '0b11', '0b10', '0b111011111', '0b10110010011111',
+        res = ['0b10', '0b11', '0b11', '0b111011111', '0b10110010011111',
                '0b10001110010000010101',
                '0b1011110001000001000111101001011110011011100011101']
         self.assertEqual(
@@ -696,7 +696,7 @@ class MASCryptTest(unittest.TestCase):
     def test_factorization_dec(self):
         """ Test decimal factorization. """
         a = '23756965471926357236576238546'
-        res = [3, 3, 2, 479, 11423, 582677, 413975744296733]
+        res = [2, 3, 3, 479, 11423, 582677, 413975744296733]
         self.assertEqual(
             res,
             lf.Factorization(10).factorization(self.time_exec, a)
@@ -705,7 +705,7 @@ class MASCryptTest(unittest.TestCase):
     def test_factorization_hex(self):
         """ Test hexadecimal factorization. """
         a = '4CC34D1ED0F7F7A11B593BD2'
-        res = ['0x3', '0x3', '0x2', '0x1df', '0x2c9f',
+        res = ['0x2', '0x3', '0x3', '0x1df', '0x2c9f',
                '0x8e415', '0x178823d2f371d']
         self.assertEqual(
             res,

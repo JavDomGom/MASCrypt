@@ -24,7 +24,7 @@ log.basicConfig(
 
 program_name = 'MASCrypt'
 program_version = '0.1.0'
-updated = 'Updated: 2020/02/13'
+updated = 'Updated: 2020/02/16'
 copyleft = 'Copyleft 2020, written by Javier Domínguez Gómez'
 program_description = 'Modular Arithmetic Software for Cryptography'
 about_text = '''This program is free software:  you can  redistribute it
@@ -388,11 +388,11 @@ def empty_entries(op):
     Attributes:
         :op: Operation to check.
     """
-    widgets_with_error = []
-    widgets = [ent_op1, ent_op2, ent_op3, ent_module]
+    entries_with_error = []
+    entries = [ent_op1, ent_op2, ent_op3, ent_module]
 
-    for widget in widgets:
-        if widget in [ent_op3, ent_module]:
+    for entry in entries:
+        if entry in [ent_op3, ent_module]:
             if op3_active.get() and not ent_op3.get() or \
                mod_active.get() and not ent_module.get() or \
                op in [
@@ -402,22 +402,38 @@ def empty_entries(op):
                 op_discreteLogarithm[0]
                ] and not ent_module.get():
                 set_color = 'red'
-                widgets_with_error.append(widget)
+                entries_with_error.append(entry)
+            else:
+                set_color = default_bg
+        elif entry is ent_op2:
+            if op in [
+                op_addition[0],
+                op_substraction[0],
+                op_multiplication[0],
+                op_division[0],
+                op_xor[0],
+                op_exponentation[0],
+                op_gcd[0],
+                op_lcm[0],
+                op_discreteLogarithm[0]
+            ] and not ent_op2.get():
+                set_color = 'red'
+                entries_with_error.append(entry)
             else:
                 set_color = default_bg
         else:
-            if not widget.get():
+            if not entry.get():
                 set_color = 'red'
-                widgets_with_error.append(widget)
+                entries_with_error.append(entry)
             else:
                 set_color = default_bg
 
-        widget.configure(
+        entry.configure(
             highlightbackground=set_color,
             highlightcolor=set_color
         )
 
-    if len(widgets_with_error) != 0:
+    if len(entries_with_error) != 0:
         return True
     else:
         return False
