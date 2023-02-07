@@ -14,12 +14,12 @@ import resources.LCM as llcm
 import resources.Primality as lp
 import resources.Factorization as lf
 import resources.DiscreteLogarithm as ldl
-from tkinter import Tk, StringVar
 
+class StringVar(): 
+    def set(self,_): pass
 
 class MASCryptTest(unittest.TestCase):
 
-    root = Tk()
     time_exec = StringVar()
 
     def test_addition_bin(self):
