@@ -278,6 +278,15 @@ class MASCryptTest(unittest.TestCase):
             lsr.SquareRoot(10).integerSquareRoot(self.time_exec, a)
         )
 
+    def test_square_root_dec_float_precision_limit(self):
+        """ Test decimal square root operation in float precision limit. """
+        a = '263836759585588630746'
+        res = 16243052655 # 16243052655.99999927384339325
+        self.assertEqual(
+            res,
+            lsr.SquareRoot(10).integerSquareRoot(self.time_exec, a)
+        )
+
     def test_square_root_hex(self):
         """ Test hexadecimal square root operation. """
         a = '237147653761586237512'
