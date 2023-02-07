@@ -748,3 +748,6 @@ class MASCryptTest(unittest.TestCase):
                 self.time_exec, a, y, n
             )
         )
+
+if __name__ == '__main__':
+    unittest.main()
