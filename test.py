@@ -14,12 +14,12 @@ import resources.LCM as llcm
 import resources.Primality as lp
 import resources.Factorization as lf
 import resources.DiscreteLogarithm as ldl
-from tkinter import Tk, StringVar
 
+class StringVar(): 
+    def set(self,_): pass
 
 class MASCryptTest(unittest.TestCase):
 
-    root = Tk()
     time_exec = StringVar()
 
     def test_addition_bin(self):
@@ -273,6 +273,15 @@ class MASCryptTest(unittest.TestCase):
         """ Test decimal square root operation. """
         a = '2677959256956917386540306'
         res = 1636447144565
+        self.assertEqual(
+            res,
+            lsr.SquareRoot(10).integerSquareRoot(self.time_exec, a)
+        )
+
+    def test_square_root_dec_float_precision_limit(self):
+        """ Test decimal square root operation in float precision limit. """
+        a = '263836759585588630746'
+        res = 16243052655 # 16243052655.99999927384339325
         self.assertEqual(
             res,
             lsr.SquareRoot(10).integerSquareRoot(self.time_exec, a)
@@ -748,3 +757,6 @@ class MASCryptTest(unittest.TestCase):
                 self.time_exec, a, y, n
             )
         )
+
+if __name__ == '__main__':
+    unittest.main()
